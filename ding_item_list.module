@@ -1,6 +1,16 @@
 <?php
 /**
  * @file
- * 
+ *
  * Module core file.
  */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function ding_item_list_ctools_plugin_directory($module, $plugin) {
+  // we'll be nice and limit scandir() calls
+  if ($module == 'ctools' && $plugin == 'content_types') {
+    return 'plugins/content_types';
+  }
+}
