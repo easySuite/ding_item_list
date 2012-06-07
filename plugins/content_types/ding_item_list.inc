@@ -32,7 +32,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $markup = '';
   foreach ($objects as $object) {
     $markup .= theme('ding_item_list_item', array(
-      'cover' => file_create_url($object->image),
+      'cover' => image_style_url('ding_item_list', $object->image),
       'title' => $object->title,
       'author' => $object->creator,
       'year' => $object->year,
@@ -42,6 +42,8 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
     ));
   }
 
+
+  drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', 'file');
   $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));
 
   return $plugin_data;
