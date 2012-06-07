@@ -27,6 +27,9 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $item_query = $conf['item_query'];
   $item_count = $conf['item_count'];
 
+  $objects = ding_item_list_get_objects($item_query, $item_count);
+  dpm($objects);
+
   return $plugin_data;
 }
 
