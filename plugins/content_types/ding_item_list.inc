@@ -28,7 +28,21 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $item_count = $conf['item_count'];
 
   $objects = ding_item_list_get_objects($item_query, $item_count);
-  dpm($objects);
+
+  $markup = '';
+  foreach ($objects as $object) {
+    $markup .= theme('ding_item_list_item', array(
+      'cover' => file_create_url($object->image),
+      'title' => $object->title,
+      'author' => $object->creator,
+      'year' => $object->year,
+      'rating' => ding_item_list_build_rating($object->rating),
+      'rating_count' => $object->rating_count,
+      'review_count' => $object->comment_count,
+    ));
+  }
+
+  $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));
 
   return $plugin_data;
 }

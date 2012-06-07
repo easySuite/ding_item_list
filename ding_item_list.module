@@ -16,6 +16,27 @@ function ding_item_list_ctools_plugin_directory($module, $plugin) {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function ding_item_list_theme($existing, $type, $theme, $path) {
+  $hooks = array();
+
+  $hooks['ding_item_list_list'] = array(
+    'variables' => array(),
+    'template' => 'ding-item-list_item-list',
+    'path' => $path . '/templates',
+  );
+
+  $hooks['ding_item_list_item'] = array(
+    'variables' => array(),
+    'template' => 'ding-item-list_item',
+    'path' => $path . '/templates',
+  );
+
+  return $hooks;
+}
+
+/**
  * Get ting objects.
  *
  * @param $query
@@ -278,4 +299,27 @@ function ding_item_list_get_images_from_addi(&$items, $missing_images_local_ids)
       $items[$local_id]->image = '';
     }
   }
+}
+
+/**
+ * Build star-like rating.
+ *
+ * @param $rating
+ *   Rating count.
+ * @return
+ *   HTML markup.
+ */
+function ding_item_list_build_rating($rating = 0) {
+  $markup = '';
+  
+  for ($i = 1; $i <= 5; $i++) {
+    $highlight = '';
+    if ($i <= $rating) {
+      $highlight = ' star-on';
+    }
+
+    $markup .= '<span class="item-rating-star' . $highlight . '"></span>';
+  }
+
+  return $markup;
 }
