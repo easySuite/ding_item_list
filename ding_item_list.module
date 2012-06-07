@@ -300,26 +300,3 @@ function ding_item_list_get_images_from_addi(&$items, $missing_images_local_ids)
     }
   }
 }
-
-/**
- * Build star-like rating.
- *
- * @param $rating
- *   Rating count.
- * @return
- *   HTML markup.
- */
-function ding_item_list_build_rating($rating = 0) {
-  $markup = '';
-  
-  for ($i = 1; $i <= 5; $i++) {
-    $highlight = '';
-    if ($i <= $rating) {
-      $highlight = ' star-on';
-    }
-
-    $markup .= '<span class="item-rating-star' . $highlight . '"></span>';
-  }
-
-  return $markup;
-}

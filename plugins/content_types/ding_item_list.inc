@@ -36,9 +36,10 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
       'title' => $object->title,
       'author' => $object->creator,
       'year' => $object->year,
-      'rating' => ding_item_list_build_rating($object->rating),
+      'rating' => $object->rating,
       'rating_count' => $object->rating_count,
       'review_count' => $object->comment_count,
+      'loan_form' => render(ding_provider_get_form('ding_reservation_reserve_form', new DingReservationReservableEntity($object), TRUE))
     ));
   }
 
