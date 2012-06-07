@@ -8,10 +8,12 @@
 
 <div class="ding-item-list-item">
   <div class="item-cover">
-    <img src="<?php print $cover; ?>" alt="" />
+    <a href="/ting/object/<?php print $faust; ?>">
+      <img src="<?php print $cover; ?>" alt="" />
+    </a>
   </div>
   <div class="item-details">
-    <div class="item-title"><?php print $title; ?></div>
+    <div class="item-title"><a href="/ting/object/<?php print $faust; ?>"><?php print $title; ?></a></div>
     <div class="item-author"><?php print t('By');?> <?php print $author; ?> (<?php print $year;?>)</div>
     <div class="item-rating">
       <div class="rating-value-<?php print $rating; ?>"><?php print $rating; ?></div>

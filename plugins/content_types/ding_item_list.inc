@@ -28,10 +28,11 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $item_count = $conf['item_count'];
 
   $objects = ding_item_list_get_objects($item_query, $item_count);
-
   $markup = '';
+  
   foreach ($objects as $object) {
     $markup .= theme('ding_item_list_item', array(
+      'faust' => $object->id,
       'cover' => image_style_url('ding_item_list', $object->image),
       'title' => $object->title,
       'author' => $object->creator,
@@ -42,7 +43,6 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
       'loan_form' => render(ding_provider_get_form('ding_reservation_reserve_form', new DingReservationReservableEntity($object), TRUE))
     ));
   }
-
 
   drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', 'file');
   $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));
