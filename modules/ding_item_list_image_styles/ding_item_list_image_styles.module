@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Ding item list image styles feature.
+ */
+
+include_once('ding_item_list_image_styles.features.inc');
