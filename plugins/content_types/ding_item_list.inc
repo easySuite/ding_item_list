@@ -29,7 +29,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
 
   $objects = ding_item_list_get_objects($item_query, $item_count);
   $markup = '';
-  
+
   foreach ($objects as $object) {
     $markup .= theme('ding_item_list_item', array(
       'faust' => $object->id,
