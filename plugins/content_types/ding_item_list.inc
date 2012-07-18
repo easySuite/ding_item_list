@@ -4,6 +4,10 @@
  * CTools plugin definition file.
  */
 
+// Item list cache validity period (seconds).
+// When changing use default simple cache intervals only.
+define('DING_ITEM_LIST_CACHE_TLL', 28800);
+
 /**
  * General ctools plugin settings.
  */
@@ -87,6 +91,23 @@ function ding_item_list_plugin_edit_form($form, &$form_state) {
 function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
   $form_state['conf']['item_query'] = $form_state['input']['item_query'];
   $form_state['conf']['item_count'] = $form_state['input']['item_count'];
+
+  // Cache the list for DING_ITEM_LIST_CACHE_TLL seconds.
+  // Apply default cache settings only to new panes.
+  if (empty($form_state['pane']->cache)) {
+    $pane_cache = &$form_state['pane']->cache;
+    $pane_cache['method'] = 'simple';
+    $pane_cache['settings'] = array(
+      'lifetime' => DING_ITEM_LIST_CACHE_TLL,
+      'granularity' => 'none');
+    // Invalidate old cache.
+    // @todo: check if any changes were introduced.
+    $simple_cache_plugin = ctools_plugin_get_info('panels', 'cache');
+    ctools_plugin_load_includes($simple_cache_plugin);
+    $cid = panels_simple_cache_get_id($pane_cache['settings'], $form_state['display'],
+      array(), $form_state['contexts'], $form_state['pane']);
+    cache_clear_all($cid, 'cache');
+  }
 }
 
 /**
