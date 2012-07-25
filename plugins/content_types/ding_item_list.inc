@@ -4,10 +4,6 @@
  * CTools plugin definition file.
  */
 
-// Item list cache validity period (seconds).
-// When changing use default simple cache intervals only.
-define('DING_ITEM_LIST_CACHE_TLL', 28800);
-
 /**
  * General ctools plugin settings.
  */
@@ -16,7 +12,7 @@ $plugin = array(
   'category' => t('Ding!'),
   'description' => t('Add ting items as a list'),
   'single' => TRUE,
-  'edit form' => 'ding_nodelist_content_type_edit_form',
+  'edit form' => 'ding_item_list_content_type_edit_form',
   'render callback' => 'ding_item_list_plugin_render',
   'edit form' => 'ding_item_list_plugin_edit_form'
 );
