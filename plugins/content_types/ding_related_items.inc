@@ -24,24 +24,28 @@ $plugin = array(
 function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context) {
   $plugin_data = new stdClass();
   $plugin_data->content = '';
-  $field_content = field_view_field('node', $context->data, 'field_materials');
+  $field_type = ($context->data->type == 'ding_page') ? 'field_ding_material' : 'field_materials';
+  $field_content = field_view_field('node', $context->data, $field_type);
+  $markup = '';
 
   foreach ($field_content as $k => $v) {
     if (is_numeric($k)) {
       $objects = ding_item_list_get_objects($v['#object']->reply->localId, 1, TRUE);
 
-      foreach ($objects as $object) {
-        $markup .= theme('ding_item_list_item', array(
-          'faust' => $object->id,
-          'cover' => image_style_url('ding_item_list', $object->image),
-          'title' => $object->title,
-          'author' => $object->creator,
-          'year' => $object->year,
-          'rating' => $object->rating,
-          'rating_count' => $object->rating_count,
-          'review_count' => $object->comment_count,
-          'loan_form' => render(ding_provider_get_form('ding_reservation_reserve_form', new DingReservationReservableEntity($object), TRUE))
-        ));
+      if (is_array($objects)) {
+        foreach ($objects as $object) {
+          $markup .= theme('ding_item_list_item', array(
+            'faust' => $object->id,
+            'cover' => image_style_url('ding_item_list', $object->image),
+            'title' => $object->title,
+            'author' => $object->creator,
+            'year' => $object->year,
+            'rating' => $object->rating,
+            'rating_count' => $object->rating_count,
+            'review_count' => $object->comment_count,
+            'loan_form' => render(ding_provider_get_form('ding_reservation_reserve_form', new DingReservationReservableEntity($object), TRUE))
+          ));
+        }
       }
     }
   }
