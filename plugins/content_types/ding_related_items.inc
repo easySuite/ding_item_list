@@ -15,7 +15,7 @@ $plugin = array(
   'required context' => new ctools_context_required(t('Node'), 'node'),
   'edit form' => 'ding_related_items_content_type_edit_form',
   'render callback' => 'ding_related_items_plugin_render',
-  'edit form' => 'ding_related_items_plugin_edit_form'
+  'edit form' => 'ding_related_items_plugin_edit_form',
 );
 
 /**
@@ -43,7 +43,7 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
             'rating' => $object->rating,
             'rating_count' => $object->rating_count,
             'review_count' => $object->comment_count,
-            'loan_form' => render(ding_provider_get_form('ding_reservation_reserve_form', new DingReservationReservableEntity($object), TRUE))
+            'loan_form' => render(ding_provider_get_form('ding_reservation_reserve_form', new DingReservationReservableEntity($object), TRUE)),
           ));
         }
       }
@@ -77,7 +77,8 @@ function ding_related_items_plugin_edit_form_submit($form, &$form_state) {
     $pane_cache['method'] = 'simple';
     $pane_cache['settings'] = array(
       'lifetime' => DING_ITEM_LIST_CACHE_TLL,
-      'granularity' => 'none');
+      'granularity' => 'none',
+    );
     // Invalidate old cache.
     // @todo: check if any changes were introduced.
     $simple_cache_plugin = ctools_plugin_get_info('panels', 'cache');
