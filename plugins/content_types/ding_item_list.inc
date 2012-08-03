@@ -40,7 +40,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
       'rating' => $object->rating,
       'rating_count' => $object->rating_count,
       'review_count' => $object->comment_count,
-      'loan_form' => render(ding_provider_get_form('ding_reservation_reserve_form', new DingReservationReservableEntity($object), TRUE)),
+      'loan_form' => drupal_render(module_invoke('ding_reservation', 'ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax')),
     ));
   }
 
