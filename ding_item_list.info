@@ -1,5 +1,5 @@
 name = "Ding item list"
 decription = "Display a set of ting items formatted as a list."
-version = "1.4.3"
+version = "1.5.1"
 core = "7.x"
 package = "Alpha"
