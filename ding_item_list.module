@@ -304,7 +304,7 @@ function ding_item_list_get_images_from_addi(&$items, $missing_images_local_ids)
 
     if ($file) {
       //Generate a path corresponding to the downloaded image, styled
-      $items[$local_id]->image = $file->uri;
+      $items[$local_id]->image = $file;
     }
     else {
       // @todo
