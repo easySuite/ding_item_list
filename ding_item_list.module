@@ -313,3 +313,24 @@ function ding_item_list_get_images_from_addi(&$items, $missing_images_local_ids)
     }
   }
 }
+
+/**
+ * Generate a cache id, based on a keyword.
+ *
+ * @param $keyword
+ *   A generic keyword.
+ * @return
+ *   Hash string, meaning a certain cache id.
+ */
+function ding_item_list_generate_cache_id($keyword) {
+  return 'ding_item_list-' . md5($keyword);
+}
+
+/**
+ * Implements hook_ding_item_cache().
+ */
+function ding_item_list_ding_item_cache() {
+  return array(
+    'ding_item_list' => t('Ding item list')
+  );
+}
