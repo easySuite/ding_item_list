@@ -3,3 +3,5 @@ decription = "Display a set of Ting items formatted as a list."
 version = "7.x-1.7"
 core = "7.x"
 package = "Artesis"
+
+dependencies[] = "ding_item_cache"

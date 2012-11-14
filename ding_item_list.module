@@ -331,6 +331,6 @@ function ding_item_list_generate_cache_id($keyword) {
  */
 function ding_item_list_ding_item_cache() {
   return array(
-    'ding_item_list' => 'Ding item list'
+    'ding_item_list' => t('Ding item list')
   );
 }
