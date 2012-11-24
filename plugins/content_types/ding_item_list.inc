@@ -27,9 +27,17 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $item_query = $conf['item_query'];
   $item_count = $conf['item_count'];
 
-  $objects = ding_item_list_get_objects($item_query, $item_count);
-  $markup = '';
+  $cid = ding_item_list_generate_cache_id($item_query);
+  $cache = cache_get($cid, 'cache_ding_item');
+  if (!$cache) {
+    $objects = ding_item_list_get_objects($item_query, $item_count);
+    cache_set($cid, $objects, 'cache_ding_item', time() + DING_ITEM_LIST_CACHE_TLL * 3600);
+  }
+  else {
+    $objects = $cache->data;
+  }
 
+  $markup = '';
   foreach ($objects as $object) {
     $markup .= theme('ding_item_list_item', array(
       'faust' => $object->id,
@@ -82,35 +90,15 @@ function ding_item_list_plugin_edit_form($form, &$form_state) {
 
 /**
  * Plugin edit form submit handler.
- *
  * Saves the data from the form.
  */
 function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
   $form_state['conf']['item_query'] = $form_state['input']['item_query'];
   $form_state['conf']['item_count'] = $form_state['input']['item_count'];
-
-  // Cache the list for DING_ITEM_LIST_CACHE_TLL seconds.
-  // Apply default cache settings only to new panes.
-  if (empty($form_state['pane']->cache)) {
-    $pane_cache = &$form_state['pane']->cache;
-    $pane_cache['method'] = 'simple';
-    $pane_cache['settings'] = array(
-      'lifetime' => DING_ITEM_LIST_CACHE_TLL,
-      'granularity' => 'none',
-    );
-    // Invalidate old cache.
-    // @todo: check if any changes were introduced.
-    $simple_cache_plugin = ctools_plugin_get_info('panels', 'cache');
-    ctools_plugin_load_includes($simple_cache_plugin);
-    $cid = panels_simple_cache_get_id($pane_cache['settings'], $form_state['display'],
-      array(), $form_state['contexts'], $form_state['pane']);
-    cache_clear_all($cid, 'cache');
-  }
 }
 
 /**
  * Plugin edit form validate handler.
- *
  * Validate the count for a numeric value.
  */
 function ding_item_list_plugin_edit_form_validate($form, &$form_state) {
