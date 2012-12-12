@@ -56,7 +56,7 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
   if (!empty($markup)) {
     drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', 'file');
     $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));
-    $plugin_data->title = $conf['item_list_custom_title'];
+    $plugin_data->title = !empty($conf['item_list_custom_title']) ? $conf['item_list_custom_title'] : t('Related materials');
   }
 
   return $plugin_data;
