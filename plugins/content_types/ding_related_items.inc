@@ -51,8 +51,14 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
     }
   }
 
-  drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', 'file');
-  $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));
+  // Empty by default, so if no content is to be rendered, ctools will skip
+  // rendering the entire pane.
+  $plugin_data->title = $plugin_data->content = '';
+  if (!empty($markup)) {
+    drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', 'file');
+    $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));
+    $plugin_data->title = !empty($conf['item_list_custom_title']) ? $conf['item_list_custom_title'] : t('Related materials');
+  }
 
   return $plugin_data;
 }
@@ -61,6 +67,18 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
  * Plugin edit form.
  */
 function ding_related_items_plugin_edit_form($form, &$form_state) {
+  // Use specific title handling - hide pane title if no content is present.
+  // Standard pane title handling does not provide such functionality,
+  // so use custom title field and hide the standard ones.
+  unset($form['override_title']);
+  unset($form['override_title_text']);
+  unset($form['override_title_markup']);
+
+  $form['item_list_custom_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pane title'),
+    '#default_value' => !empty($form_state['conf']['item_list_custom_title']) ? $form_state['conf']['item_list_custom_title'] : t('Related materials'),
+  );
 
   return $form;
 }
@@ -71,6 +89,9 @@ function ding_related_items_plugin_edit_form($form, &$form_state) {
  * Saves the data from the form.
  */
 function ding_related_items_plugin_edit_form_submit($form, &$form_state) {
+  // Save custom pane title.
+  $form_state['conf']['item_list_custom_title'] = $form_state['values']['item_list_custom_title'];
+
   // Cache the list for DING_ITEM_LIST_CACHE_TLL seconds.
   // Apply default cache settings only to new panes.
   if (empty($form_state['pane']->cache)) {
