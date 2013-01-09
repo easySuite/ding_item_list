@@ -37,6 +37,14 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
     $objects = $cache->data;
   }
 
+  // Check if cover images are physically present.
+  try {
+    ding_item_list_create_missed_covers($objects);
+  }
+  catch (Exception $e) {
+    // No special handling at the moment.
+  }
+
   $markup = '';
   foreach ($objects as $object) {
     $markup .= theme('ding_item_list_item', array(
