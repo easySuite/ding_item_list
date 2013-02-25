@@ -1,3 +1,10 @@
 .ding-item-list .item-rating-star {
   display: inline-block;
 }
+
+.pane-ding-item-list  .item-loan,
+.pane-ding-related-items .item-loan {
+  font: 10px 'Soho Gothic W01 Regular', Helvetica, Arial, sans-serif;
+  line-height: 14px;
+  white-space: nowrap;
+}
