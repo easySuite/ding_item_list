@@ -3,9 +3,11 @@
 }
 
 .pane-ding-item-list .item-loan,
-.pane-ding-item-list .item-loan a,
+.pane-ding-item-list .item-loan .reservation-link-ajax a:link,
+.pane-ding-item-list .item-loan .reservation-link-ajax a:visited,
 .pane-ding-related-items .item-loan,
-.pane-ding-related-items .item-loan a {
+.pane-ding-related-items .item-loan .reservation-link-ajax a:link,
+.pane-ding-related-items .item-loan .reservation-link-ajax a:visited {
   font: 10px 'Soho Gothic W01 Regular', Helvetica, Arial, sans-serif;
   line-height: 14px;
   white-space: nowrap;
