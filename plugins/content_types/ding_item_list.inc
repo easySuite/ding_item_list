@@ -49,7 +49,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   foreach ($objects as $object) {
     $markup .= theme('ding_item_list_item', array(
       'faust' => $object->id,
-      'cover' => image_style_url('ding_item_list', $object->image),
+      'cover' => (!empty($object->image) && file_exists($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
       'title' => $object->title,
       'author' => $object->creator,
       'year' => $object->year,
