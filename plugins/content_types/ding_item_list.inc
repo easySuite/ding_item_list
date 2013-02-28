@@ -46,10 +46,11 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   }
 
   $markup = '';
+  $ting_objects = array();
   foreach ($objects as $object) {
     $markup .= theme('ding_item_list_item', array(
       'faust' => $object->id,
-      'cover' => image_style_url('ding_item_list', $object->image),
+      'cover' => (!empty($object->image) && file_exists($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
       'title' => $object->title,
       'author' => $object->creator,
       'year' => $object->year,
@@ -59,7 +60,11 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
       'review_count' => $object->comment_count,
       'loan_form' => drupal_render(module_invoke('ding_reservation', 'ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax')),
     ));
+    $ting_objects[] = $object->primary_object;
   }
+
+  // Add ajax availability checks.
+  module_invoke('ding_availability', 'ajax', $ting_objects, 'availability');
 
   drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', 'file');
   $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));

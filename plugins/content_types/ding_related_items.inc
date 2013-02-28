@@ -27,6 +27,7 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
   $field_type = ($context->data->type == 'ding_page') ? 'field_ding_material' : 'field_materials';
   $field_content = field_view_field('node', $context->data, $field_type);
   $markup = '';
+  $ting_objects = array();
 
   foreach ($field_content as $k => $v) {
     if (is_numeric($k)) {
@@ -36,7 +37,7 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
         foreach ($objects as $object) {
           $markup .= theme('ding_item_list_item', array(
             'faust' => $object->id,
-            'cover' => (!empty($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
+            'cover' => (!empty($object->image) && file_exists($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
             'title' => $object->title,
             'author' => $object->creator,
             'year' => $object->year,
@@ -46,10 +47,14 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
             'review_count' => $object->comment_count,
             'loan_form' => drupal_render(module_invoke('ding_reservation', 'ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax')),
           ));
+          $ting_objects[] = $object->primary_object;
         }
       }
     }
   }
+
+  // Add ajax availability checks.
+  module_invoke('ding_availability', 'ajax', $ting_objects, 'availability');
 
   // Empty by default, so if no content is to be rendered, ctools will skip
   // rendering the entire pane.
