@@ -1,6 +1,6 @@
 name = "Ding item list"
 decription = "Display a set of Ting items formatted as a list."
-version = "7.x-1.9.3"
+version = "7.x-1.9.4"
 core = "7.x"
 package = "Artesis"
 
