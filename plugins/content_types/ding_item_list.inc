@@ -68,7 +68,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
 
   drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', 'file');
   $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));
-  $plugin_data->title = isset($conf['item_list_item_list_custom_title']) ? t($conf['item_list_item_list_custom_title']) : t('Related materials');
+  $plugin_data->title = t(isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : 'Related materials');
 
   return $plugin_data;
 }
@@ -89,7 +89,7 @@ function ding_item_list_plugin_edit_form($form, &$form_state) {
   $form['item_list_item_list_custom_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Pane title'),
-    '#default_value' => isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : t('Related materials'),
+    '#default_value' => t(isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : 'Related materials'),
   );
 
   $form['plugin_settings']['list'] = array(
