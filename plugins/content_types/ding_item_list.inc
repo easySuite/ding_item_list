@@ -123,6 +123,10 @@ function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
   $form_state['conf']['item_list_item_list_custom_title'] = $form_state['values']['item_list_item_list_custom_title'];
   $form_state['conf']['item_query'] = $form_state['input']['item_query'];
   $form_state['conf']['item_count'] = $form_state['input']['item_count'];
+
+  // Clear cache when saving settings
+  $cid = ding_item_list_generate_cache_id($form_state['conf']['item_query']);
+  cache_clear_all($cid, 'cache_ding_item');
 }
 
 /**
