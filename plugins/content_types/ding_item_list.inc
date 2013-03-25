@@ -48,6 +48,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $markup = '';
   $ting_objects = array();
   foreach ($objects as $object) {
+    $loan_form = module_invoke('ding_reservation', 'ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax');
     $markup .= theme('ding_item_list_item', array(
       'faust' => $object->id,
       'cover' => (!empty($object->image) && file_exists($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
@@ -58,7 +59,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
       'rating' => $object->rating,
       'rating_count' => $object->rating_count,
       'review_count' => $object->comment_count,
-      'loan_form' => drupal_render(module_invoke('ding_reservation', 'ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax')),
+      'loan_form' => drupal_render($loan_form),
     ));
     $ting_objects[] = $object->primary_object;
   }
@@ -102,6 +103,7 @@ function ding_item_list_plugin_edit_form($form, &$form_state) {
     '#title' => t('Ting query string'),
     '#default_value' => $conf['item_query'],
     '#required' => TRUE,
+    '#maxlength' => 255,
   );
 
   $form['plugin_settings']['list']['item_count'] = array(
