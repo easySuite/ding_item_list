@@ -48,6 +48,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $markup = '';
   $ting_objects = array();
   foreach ($objects as $object) {
+    $loan_form = module_invoke('ding_reservation', 'ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax');
     $markup .= theme('ding_item_list_item', array(
       'faust' => $object->id,
       'cover' => (!empty($object->image) && file_exists($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
@@ -58,7 +59,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
       'rating' => $object->rating,
       'rating_count' => $object->rating_count,
       'review_count' => $object->comment_count,
-      'loan_form' => drupal_render(module_invoke('ding_reservation', 'ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax')),
+      'loan_form' => drupal_render($loan_form),
     ));
     $ting_objects[] = $object->primary_object;
   }
@@ -68,7 +69,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
 
   drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', 'file');
   $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));
-  $plugin_data->title = isset($conf['item_list_item_list_custom_title']) ? t($conf['item_list_item_list_custom_title']) : t('Related materials');
+  $plugin_data->title = t(isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : 'Related materials');
 
   return $plugin_data;
 }
@@ -89,7 +90,7 @@ function ding_item_list_plugin_edit_form($form, &$form_state) {
   $form['item_list_item_list_custom_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Pane title'),
-    '#default_value' => isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : t('Related materials'),
+    '#default_value' => t(isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : 'Related materials'),
   );
 
   $form['plugin_settings']['list'] = array(
@@ -102,6 +103,7 @@ function ding_item_list_plugin_edit_form($form, &$form_state) {
     '#title' => t('Ting query string'),
     '#default_value' => $conf['item_query'],
     '#required' => TRUE,
+    '#maxlength' => 255,
   );
 
   $form['plugin_settings']['list']['item_count'] = array(
@@ -123,6 +125,10 @@ function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
   $form_state['conf']['item_list_item_list_custom_title'] = $form_state['values']['item_list_item_list_custom_title'];
   $form_state['conf']['item_query'] = $form_state['input']['item_query'];
   $form_state['conf']['item_count'] = $form_state['input']['item_count'];
+
+  // Clear cache when saving settings
+  $cid = ding_item_list_generate_cache_id($form_state['conf']['item_query']);
+  cache_clear_all($cid, 'cache_ding_item');
 }
 
 /**
