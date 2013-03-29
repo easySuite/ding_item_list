@@ -110,8 +110,7 @@ function ding_related_items_plugin_edit_form_submit($form, &$form_state) {
     // @todo: check if any changes were introduced.
     $simple_cache_plugin = ctools_plugin_get_info('panels', 'cache');
     ctools_plugin_load_includes($simple_cache_plugin);
-    $cid = panels_simple_cache_get_id($pane_cache['settings'], $form_state['display'],
-      array(), $form_state['contexts'], $form_state['pane']);
+    $cid = panels_simple_cache_get_id($pane_cache['settings'], $form_state['display'], array(), $form_state['contexts'], $form_state['pane']);
     cache_clear_all($cid, 'cache');
   }
 }
