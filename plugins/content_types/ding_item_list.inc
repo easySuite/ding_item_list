@@ -26,11 +26,12 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
 
   $item_query = $conf['item_query'];
   $item_count = $conf['item_count'];
+  $item_sort = $conf['item_sort'];
 
   $cid = ding_item_list_generate_cache_id($item_query);
   $cache = cache_get($cid, 'cache_ding_item');
   if (!$cache) {
-    $objects = ding_item_list_get_objects($item_query, $item_count);
+    $objects = ding_item_list_get_objects($item_query, $item_count, $item_sort);
     cache_set($cid, $objects, 'cache_ding_item', time() + DING_ITEM_LIST_CACHE_TLL * 3600);
   }
   else {
@@ -114,6 +115,17 @@ function ding_item_list_plugin_edit_form($form, &$form_state) {
     '#size' => 3,
   );
 
+  $form['plugin_settings']['list']['item_sort'] = array(
+    '#type' => 'select',
+    '#title' => t('Sorting'),
+    '#options' => array(
+      '' => t('- None -'),
+      'acquisitionDate_descending' => t('Acquisition date (Descending)'),
+    ),
+    '#default_value' => isset($conf['item_sort']) ? $conf['item_sort'] : '',
+    '#description' => t('If not set, defaults to Ranking'),
+  );
+
   return $form;
 }
 
@@ -125,8 +137,9 @@ function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
   $form_state['conf']['item_list_item_list_custom_title'] = $form_state['values']['item_list_item_list_custom_title'];
   $form_state['conf']['item_query'] = $form_state['input']['item_query'];
   $form_state['conf']['item_count'] = $form_state['input']['item_count'];
+  $form_state['conf']['item_sort'] = $form_state['input']['item_sort'];
 
-  // Clear cache when saving settings
+  // Clear cache when saving settings.
   $cid = ding_item_list_generate_cache_id($form_state['conf']['item_query']);
   cache_clear_all($cid, 'cache_ding_item');
 }
