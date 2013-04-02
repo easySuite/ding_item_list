@@ -1,9 +1,9 @@
 <?php
+
 /**
  * @file
  * CTools plugin definition file.
  */
-
 /**
  * General ctools plugin settings.
  */
@@ -31,7 +31,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $cid = ding_item_list_generate_cache_id($item_query);
   $cache = cache_get($cid, 'cache_ding_item');
   if (!$cache) {
-    $objects = ding_item_list_get_objects($item_query, $item_count, $item_sort);
+    $objects = ding_item_list_get_objects($item_query, $item_count, FALSE, $item_sort);
     cache_set($cid, $objects, 'cache_ding_item', time() + DING_ITEM_LIST_CACHE_TLL * 3600);
   }
   else {
@@ -61,7 +61,8 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
       'rating_count' => $object->rating_count,
       'review_count' => $object->comment_count,
       'loan_form' => drupal_render($loan_form),
-    ));
+      )
+    );
     $ting_objects[] = $object->primary_object;
   }
 
