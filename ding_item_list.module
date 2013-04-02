@@ -48,7 +48,7 @@ function ding_item_list_theme($existing, $type, $theme, $path) {
  * @param $count
  *   Number of objects to search.
  */
-function ding_item_list_get_objects($query = '', $count = 0, $no_cover = FALSE) {
+function ding_item_list_get_objects($query = '', $count = 0, $no_cover = FALSE, $sort = '') {
   $objects = array();
   $request = '(' . $query . ')';
   $page = 1;
@@ -56,7 +56,7 @@ function ding_item_list_get_objects($query = '', $count = 0, $no_cover = FALSE) 
   if (!empty($query) && !empty($count)) {
     module_load_include('client.inc', 'ting');
     // Search with portions of 10 items
-    while ($result = ding_item_list_search_ting($request, $page++, 10)) {
+    while ($result = ding_item_list_search_ting($request, $page++, 10, $sort)) {
       // This query is out of results OR we have needed amount of items
       if ($result->numTotalCollections == 0 || count($objects) == $count) {
         break;
@@ -203,13 +203,14 @@ function ding_item_list_get_objects($query = '', $count = 0, $no_cover = FALSE) 
  * @return
  *   Ting search result object.
  */
-function ding_item_list_search_ting($query = '', $page = 1, $records = 10) {
+function ding_item_list_search_ting($query = '', $page = 1, $records = 10, $sort = '') {
   if (!empty($query)) {
     $query = '(' . $query . ')';
 
     $options = array(
       'allObjects' => FALSE,
       'enrich' => TRUE,
+      'sort' => $sort,
     );
 
     $search_result = ting_do_search($query, $page, $records, $options);
