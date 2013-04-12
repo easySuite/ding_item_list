@@ -4,12 +4,12 @@
  *
  * Template file for single item list item.
  */
+$alt = check_plain($title . ' ' . $author);
 ?>
-
 <div class="ding-item-list-item">
   <div class="item-cover">
     <a href="/ting/object/<?php print $faust; ?>">
-      <img src="<?php print $cover; ?>" alt="" />
+      <img src="<?php print $cover; ?>" alt="<?php echo $alt; ?>" />
     </a>
   </div>
   <div class="item-details">
