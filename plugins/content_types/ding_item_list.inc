@@ -26,7 +26,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
 
   $item_query = $conf['item_query'];
   $item_count = $conf['item_count'];
-  $item_sort = $conf['item_sort'];
+  $item_sort = empty($conf['item_sort']) ? '' : $conf['item_sort'];
 
   $cid = ding_item_list_generate_cache_id($item_query);
   $cache = cache_get($cid, 'cache_ding_item');
