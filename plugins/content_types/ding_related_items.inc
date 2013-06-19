@@ -31,6 +31,12 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
 
   foreach ($field_content as $k => $v) {
     if (is_numeric($k)) {
+
+      // No localId set, do nothing.
+      if (empty($v['#object']->reply->localId)) {
+        continue;
+      }
+
       $objects = ding_item_list_get_objects($v['#object']->reply->localId, 1, TRUE);
 
       if (is_array($objects)) {
