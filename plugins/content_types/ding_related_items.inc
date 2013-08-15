@@ -59,9 +59,6 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
     }
   }
 
-  // Add ajax availability checks.
-  module_invoke('ding_availability', 'ajax', $ting_objects, 'availability');
-
   // Empty by default, so if no content is to be rendered, ctools will skip
   // rendering the entire pane.
   $plugin_data->title = $plugin_data->content = '';
