@@ -231,15 +231,13 @@ function ding_item_list_search_ting($query = '', $page = 1, $records = 10, $sort
  * @return
  *   TRUE if item has a cover, FALSE otherwise.
  */
-function ding_item_list_check_cover($local_id) {
-  $service = new AdditionalInformationService(variable_get('addi_wsdl_url'), variable_get('addi_username'), variable_get('addi_group'), variable_get('addi_password'));
+function ding_item_list_check_cover($local_id, $style = 'ding_item_list') {
+  module_load_include('pages.inc', 'ting_covers');
+  $covers = ting_covers_objects(FALSE, array($local_id => array('local_id' => $local_id, 'image_style' => $style)));
 
-  $cover = $service->getByFaustNumber($local_id);
-
-  if (count($cover) > 0) {
+  if (!empty($covers[$local_id]) > 0) {
     return TRUE;
   }
-
   return FALSE;
 }
 
