@@ -1,7 +1,6 @@
 <?php
 /**
  * @file
- *
  * Template file for single item list item.
  */
 $alt = check_plain($title . ' ' . $author);
