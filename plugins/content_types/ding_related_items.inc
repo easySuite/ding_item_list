@@ -41,6 +41,7 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
 
       if (is_array($objects)) {
         foreach ($objects as $object) {
+          $loan_form = module_invoke('ding_reservation', 'ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax');
           $markup .= theme('ding_item_list_item', array(
             'faust' => $object->id,
             'cover' => (!empty($object->image) && file_exists($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
@@ -51,7 +52,7 @@ function ding_related_items_plugin_render($subtype, $conf, $panel_args, $context
             'rating' => $object->rating,
             'rating_count' => $object->rating_count,
             'review_count' => $object->comment_count,
-            'loan_form' => drupal_render(module_invoke('ding_reservation', 'ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax')),
+            'loan_form' => drupal_render($loan_form),
           ));
           $ting_objects[] = $object->primary_object;
         }
