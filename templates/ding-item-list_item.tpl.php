@@ -1,7 +1,6 @@
 <?php
 /**
  * @file
- *
  * Template file for single item list item.
  */
 $alt = check_plain($title . ' ' . $author);
@@ -14,7 +13,7 @@ $alt = check_plain($title . ' ' . $author);
   </div>
   <div class="item-details">
     <div class="item-title"><a href="/ting/object/<?php print $faust; ?>"><?php print $title; ?></a></div>
-    <div class="item-author"><?php print t('By');?> <?php print $author; ?> (<?php print $year;?>)</div>
+    <div class="item-author"><?php if (!empty($author)) { print t('By @author', array('@author' => $author)); } ?> (<?php print $year;?>)</div>
     <?php if ($has_rating): ?>
       <div class="item-rating">
         <div class="rating-value-<?php print $rating; ?>"><?php print $rating; ?></div>

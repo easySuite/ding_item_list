@@ -1,9 +1,9 @@
 <?php
-
 /**
  * @file
  * CTools plugin definition file.
  */
+
 /**
  * General ctools plugin settings.
  */
@@ -136,6 +136,7 @@ function ding_item_list_plugin_edit_form($form, &$form_state) {
 
 /**
  * Plugin edit form submit handler.
+ *
  * Saves the data from the form.
  */
 function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
@@ -151,6 +152,7 @@ function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
 
 /**
  * Plugin edit form validate handler.
+ *
  * Validate the count for a numeric value.
  */
 function ding_item_list_plugin_edit_form_validate($form, &$form_state) {
