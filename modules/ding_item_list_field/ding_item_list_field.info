@@ -1,0 +1,7 @@
+name = Ding Item List Field
+description = Provide a field instance to be used inside nodes
+core = 7.x
+version = 0.1
+package = Artesis
+dependencies[] = field_ui
+dependencies[] = ding_item_list

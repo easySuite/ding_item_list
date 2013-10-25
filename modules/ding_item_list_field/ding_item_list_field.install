@@ -1,0 +1,40 @@
+<?php
+/**
+ * @file
+ * Install/uninstall routine.
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function ding_item_list_field_field_schema($field) {
+  if ($field['type'] == 'ding_item_list_field') {
+    $schema = array();
+
+    $schema['columns']['title'] = array(
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => FALSE,
+    );
+
+    $schema['columns']['query'] = array(
+      'type' => 'varchar',
+      'length' => 512,
+      'not null' => FALSE,
+    );
+
+    $schema['columns']['count'] = array(
+      'type' => 'int',
+      'not null' => FALSE,
+      'unsigned' => TRUE,
+    );
+
+    $schema['columns']['sort'] = array(
+      'type' => 'varchar',
+      'length' => 64,
+      'not null' => FALSE,
+    );
+
+    return $schema;
+  }
+}
