@@ -12,7 +12,6 @@ $plugin = array(
   'category' => t('Ding!'),
   'description' => t('Add ting items as a list'),
   'single' => TRUE,
-  'edit form' => 'ding_item_list_content_type_edit_form',
   'render callback' => 'ding_item_list_plugin_render',
   'edit form' => 'ding_item_list_plugin_edit_form',
 );
