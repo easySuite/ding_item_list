@@ -457,3 +457,66 @@ function ding_item_list_get_content($query, $count, $sort) {
 
   return $markup;
 }
+
+/**
+ * Add task to cron.
+ *
+ * @param string $key
+ *  cache key.
+ * @param string $function
+ *  function to execute.
+ * @param array $args
+ *  arguments passed to callback.
+ *
+ * @return void
+ */
+function _ding_item_list_cronapi_task($key, $function, array $args) {
+  $cahce_key = 'ding_item_list_cronapi_task';
+  $cache = cache_get($cahce_key, 'cache');
+  $cache = $cache ? $cache : (object) array('data' => array());
+  $cache->data[$key] = array('callback' => $function, 'args' => $args);
+  cache_set($cahce_key, $cache->data, 'cache', CACHE_TEMPORARY);
+}
+
+/**
+ * Implements hook_cronapi().
+ */
+function ding_item_list_cronapi($op, $function = NULL) {
+  switch ($op) {
+    case 'list':
+      return array('ding_item_list_warm_cache' => 'Cache warmer');
+
+    break;
+
+    case 'rule':
+      switch ($function) {
+        case 'ding_item_list_warm_cache':
+          return "* 3 * * *";
+      }
+      break;
+
+    case 'execute':
+      switch ($function) {
+        case 'ding_item_list_warm_cache':
+          module_load_include('inc', 'ding_item_list', 'plugins/content_types/ding_item_list');
+          // Clear cache.
+          cache_clear_all('ding_item_list', 'cache_ding_item', TRUE);
+
+          // Rebuild cache by executing existing callbacks.
+          $cache = cache_get('ding_item_list_cronapi_task');
+          if ($cache !== FALSE) {
+            foreach($cache->data as $item) {
+              call_user_func_array($item['callback'], $item['args']);
+            }
+          }
+
+          // Clear tasks.
+          cache_clear_all('ding_item_list_cronapi_task', 'cache', TRUE);
+          break;
+
+      }
+      break;
+
+  }
+}
+
