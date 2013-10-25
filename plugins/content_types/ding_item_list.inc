@@ -21,6 +21,9 @@ $plugin = array(
  * Plugin content renderer.
  */
 function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
+  // Add cron job callback to be able to warmup the cache.
+  _ding_item_list_cronapi_task($conf['item_query'], __FUNCTION__, func_get_args());
+
   $plugin_data = new stdClass();
   $plugin_data->content = '';
 
