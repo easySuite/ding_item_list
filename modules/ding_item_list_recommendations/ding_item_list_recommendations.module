@@ -1,0 +1,15 @@
+<?php
+/**
+ * @file
+ * Display the recommended materials in ding_item_list manner.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function ding_item_list_recommendations_ctools_plugin_directory($module, $plugin) {
+  // We'll be nice and limit scandir() calls.
+  if ($module == 'ctools' && $plugin == 'content_types') {
+    return 'plugins/content_types';
+  }
+}
