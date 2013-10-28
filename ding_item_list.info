@@ -7,3 +7,6 @@ package = "Artesis"
 dependencies[] = "ding_item_cache"
 dependencies[] = "ting"
 dependencies[] = "ting_search"
+# This is weak dependency and can be ommited.
+# Why is here then, if it's `WEAK`.
+dependencies[] = "ultimate_cron"
