@@ -21,13 +21,15 @@ $plugin = array(
  */
 function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   // Add cron job callback to be able to warmup the cache.
-  _ding_item_list_cronapi_task($conf['item_query'], __FUNCTION__, func_get_args());
+  if (!empty($conf['item_query'])) {
+    _ding_item_list_cronapi_task($conf['item_query'], __FUNCTION__, func_get_args());
+  }
 
   $plugin_data = new stdClass();
   $plugin_data->content = '';
 
-  $item_query = $conf['query'];
-  $item_count = $conf['count'];
+  $item_query = empty($conf['query']) ? '' : $conf['query'];
+  $item_count = empty($conf['count']) ? '' : $conf['count'];
   $item_sort = empty($conf['sort']) ? '' : $conf['sort'];
 
   $markup = ding_item_list_get_content($item_query, $item_count, $item_sort);
