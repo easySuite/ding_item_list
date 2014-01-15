@@ -374,24 +374,24 @@ function ding_item_list_search_form(&$form, $default = array()) {
     '#title' => t('List settings'),
   );
 
-  $form['plugin_settings']['query'] = array(
+  $form['plugin_settings']['item_query'] = array(
     '#type' => 'textfield',
     '#title' => t('Ting query string'),
-    '#default_value' => isset($default['query']) ? $default['query'] : '',
+    '#default_value' => isset($default['item_query']) ? $default['item_query'] : '',
     '#required' => TRUE,
     '#maxlength' => 255,
   );
 
-  $form['plugin_settings']['count'] = array(
+  $form['plugin_settings']['item_count'] = array(
     '#type' => 'textfield',
     '#title' => t('Items count'),
-    '#default_value' => isset($default['count']) ? $default['count'] : 3,
+    '#default_value' => isset($default['item_count']) ? $default['item_count'] : 3,
     '#required' => TRUE,
     '#size' => 3,
-    '#element_validate' => array('_element_validate_integer_positive'),
+    '#element_validate' => array('element_validate_integer_positive'),
   );
 
-  $form['plugin_settings']['sort'] = array(
+  $form['plugin_settings']['item_sort'] = array(
     '#type' => 'select',
     '#title' => t('Sorting'),
     '#options' => array(
@@ -405,7 +405,7 @@ function ding_item_list_search_form(&$form, $default = array()) {
       'acquisitionDate_ascending' => t('Acquisition date (Ascending)'),
       'acquisitionDate_descending' => t('Acquisition date (Descending)'),
     ),
-    '#default_value' => isset($default['sort']) ? $default['sort'] : '',
+    '#default_value' => isset($default['item_sort']) ? $default['item_sort'] : '',
     '#description' => t('If not set, defaults to Ranking'),
   );
 }
