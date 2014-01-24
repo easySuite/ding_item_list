@@ -76,6 +76,6 @@ function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
   $form_state['conf']['item_sort'] = $form_state['input']['item_sort'];
 
   // Clear cache when saving settings.
-  $cid = ding_item_list_generate_cache_id($form_state['conf']['query']);
+  $cid = ding_item_list_generate_cache_id($form_state['conf']['item_query']);
   cache_clear_all($cid, 'cache_ding_item');
 }
