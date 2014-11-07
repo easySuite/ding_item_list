@@ -1,6 +1,6 @@
-name = Ding Item List Recommendations
-description = Provides a 'ding item list'-like renderer for recommended materials
-core = 7.x
-version = 0.1
-package = Artesis
-dependencies[] = ding_item_list
+name = "easyDDB Ding Item List Recommendations"
+description = "Provides a 'Ding Item List'-like renderer for recommended materials"
+core = "7.x"
+version = "0.1"
+package = "easyDDB"
+dependencies[] = "ding_item_list"
