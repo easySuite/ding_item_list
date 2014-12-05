@@ -1,8 +1,9 @@
 name = "easyDDB Ding Item List"
 description = "Display a set of Ting items formatted as a list."
-version = "7.x-1.0"
+version = "7.x-1.0.1"
 core = "7.x"
 package = "easyDDB"
 dependencies[] = "ding_item_cache"
 dependencies[] = "ting"
 dependencies[] = "ting_search"
+
