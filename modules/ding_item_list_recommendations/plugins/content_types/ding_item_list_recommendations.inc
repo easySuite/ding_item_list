@@ -23,16 +23,21 @@ $plugin = array(
 function ding_item_list_recommendations_plugin_render($subtype, $conf, $panel_args, $context) {
   $plugin_data = new stdClass();
   $items_show = isset($conf['recommendations_list_item_list_show']) ? $conf['recommendations_list_item_list_show'] : 10;
+  module_load_include('inc', 'ting', 'ting.client');
 
   if (isset($context[0])) {
     $objects = NULL;
 
-    if ($context[0]->type == 'ting_object') {
-      $objects = ting_get_object($context[0]->get_original_argument()->getId());
+    $ting_obj = $context[0]->get_original_argument();
+    if (is_object($ting_obj) && method_exists($ting_obj, 'getId')) {
+      $id = $ting_obj->getId();
     }
-    elseif ($context[0]->type == 'ting_collection') {
-      $objects = ting_get_object($context[0]->get_original_argument()->getId(), TRUE);
+    else {
+      $id = urldecode(arg(2));
     }
+
+    $collection = ($context[0]->type == 'ting_collection');
+    $objects = ting_get_object($id, $collection);
 
     if ($objects) {
       $identifiers = ding_adhl_frontend_extract_identifers($objects);
