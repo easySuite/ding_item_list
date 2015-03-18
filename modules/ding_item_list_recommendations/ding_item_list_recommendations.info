@@ -1,6 +1,0 @@
-name = "easyDDB Ding Item List Recommendations"
-description = "Provides a 'Ding Item List'-like renderer for recommended materials"
-core = "7.x"
-version = "0.1"
-package = "easyDDB"
-dependencies[] = "ding_item_list"
