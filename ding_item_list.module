@@ -22,6 +22,7 @@ function ding_item_list_ctools_plugin_directory($module, $plugin) {
  * Implements hook_theme().
  */
 function ding_item_list_theme($existing, $type, $theme, $path) {
+  drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', array('type' => 'file'));
   $hooks = array();
 
   $hooks['ding_item_list_list'] = array(
