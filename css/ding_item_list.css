@@ -2,7 +2,6 @@
    ========================================================================== */
 /* Font variables
    ========================================================================== */
-.alma-item-list .item-details .reserve-button,
 .ding-item-list-item .item-details .reserve-button {
   border-radius: 10px;
   display: inline-block;
@@ -15,15 +14,10 @@
   vertical-align: middle;
   line-height: 100%;
 }
-.alma-item-list .item-details .reserve-button:focus,
-.ding-item-list-item .item-details .reserve-button:focus, .alma-item-list .item-details .reserve-button:hover,
-.ding-item-list-item .item-details .reserve-button:hover, .alma-item-list .item-details .reserve-button:active,
-.ding-item-list-item .item-details .reserve-button:active {
+.ding-item-list-item .item-details .reserve-button:focus, .ding-item-list-item .item-details .reserve-button:hover, .ding-item-list-item .item-details .reserve-button:active {
   text-decoration: none;
 }
-.alma-item-list .item-details .disabled.reserve-button,
-.ding-item-list-item .item-details .disabled.reserve-button, .alma-item-list .item-details [disabled].reserve-button,
-.ding-item-list-item .item-details [disabled].reserve-button {
+.ding-item-list-item .item-details .disabled.reserve-button, .ding-item-list-item .item-details [disabled].reserve-button {
   opacity: 0.65;
   box-shadow: none;
   cursor: default;
@@ -46,7 +40,6 @@
   padding: 0;
 }
 
-.alma-item-list,
 .ding-item-list-item {
   overflow: hidden;
   margin-bottom: 10px;
@@ -54,29 +47,22 @@
   border-top: 1px dashed #ccc;
   font-size: 16px;
 }
-.alma-item-list .item-cover,
 .ding-item-list-item .item-cover {
   float: left;
 }
-.alma-item-list .item-details,
 .ding-item-list-item .item-details {
   margin-left: 65px;
 }
-.alma-item-list .item-details .item-author,
 .ding-item-list-item .item-details .item-author {
   font-size: 90%;
 }
-.alma-item-list .item-details .item-title a,
 .ding-item-list-item .item-details .item-title a {
   font-weight: 600;
 }
-.alma-item-list .item-details .reserve-button,
 .ding-item-list-item .item-details .reserve-button {
   margin-top: 10px;
   font-size: 100%;
 }
-.alma-item-list .item-details .item-loan,
-.alma-item-list .item-details .item-loan a,
 .ding-item-list-item .item-details .item-loan,
 .ding-item-list-item .item-details .item-loan a {
   font-size: 100%;
