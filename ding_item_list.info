@@ -4,6 +4,7 @@ version = 7.x-2.2.0+easy
 core = "7.x"
 package = "easyDDB"
 dependencies[] = "ding_item_cache"
+dependencies[] = "ding_item_list_image_styles"
 dependencies[] = "ting"
 dependencies[] = "ting_search"
 
