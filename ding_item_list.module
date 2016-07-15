@@ -79,7 +79,7 @@ function ding_item_list_get_objects($query = '', $count = 0, $no_cover = FALSE, 
           // We can try to fetch next items and break here ONLY if cover
           // service is ok but returned no cover for current item.
           // Otherwise we will end up with eternal cycle.
-          if ($cover_exists && !$no_cover) {
+          if (!$cover_exists && !$no_cover) {
             break;
           }
         }
@@ -420,7 +420,6 @@ function ding_item_list_get_content($query, $count, $sort) {
 
   if (!$cache) {
     $objects = ding_item_list_get_objects($query, $count, FALSE, $sort);
-
     cache_set($cid, $objects, 'cache_ding_item', time() + DING_ITEM_LIST_CACHE_TLL * 3600);
   }
   else {
