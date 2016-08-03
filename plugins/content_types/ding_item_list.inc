@@ -27,14 +27,37 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
 
   $plugin_data = new stdClass();
   $plugin_data->content = '';
-  $item_query = $conf['item_query'];
-  $item_count = $conf['item_count'];
+
   $item_sort = empty($conf['item_sort']) ? '' : $conf['item_sort'];
 
-  $markup = ding_item_list_get_content($item_query, $item_count, $item_sort);
+  $params = implode('', array(
+    'query' => $conf['item_query'],
+    'count' => $conf['item_count'],
+    'sort' => $item_sort,
+  ));
+  $hash = md5($params);
 
-  drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', 'file');
-  $plugin_data->content = theme('ding_item_list_list', array('items' => $markup));
+  $path = drupal_get_path('module', 'ding_item_list');
+  $plugin_data->content['#markup'] = theme('ding_item_list_list', array('hash' => $hash));
+  $plugin_data->content['#attached'] = array(
+    'js' => array(
+      array('data' => $path . '/js/ding_item_list.js'),
+      array(
+        'data' => array(
+          $hash => array(
+            'query' => $conf['item_query'],
+            'count' => $conf['item_count'],
+            'sort' => $item_sort,
+          ),
+        ),
+        'type' => 'setting'
+      ),
+    ),
+    'css' => array(
+      $path . '/css/ding_item_list.css',
+    ),
+  );
+
   $plugin_data->title = t(isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : 'Related materials');
 
   return $plugin_data;

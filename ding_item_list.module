@@ -8,6 +8,22 @@
 // When changing use default simple cache intervals only.
 define('DING_ITEM_LIST_CACHE_TLL', 28800);
 
+
+/**
+ * Implements hook_menu().
+ */
+function ding_item_list_menu() {
+  $items = array();
+  $items['ding_item_list'] = array(
+    'title' => 'Get items for list',
+    'page callback' => 'get_item_list_ajax',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
 /**
  * Implements hook_ctools_plugin_directory().
  */
@@ -38,6 +54,23 @@ function ding_item_list_theme($existing, $type, $theme, $path) {
   );
 
   return $hooks;
+}
+
+/**
+ * Pass ajax loaded items to the list wrapper.
+ */
+function get_item_list_ajax() {
+  if (!empty($_GET['content']) && count($_GET['content']) > 2) {
+    list($item_query, $item_count, $item_sort) = array_values($_GET['content']);
+    $markup = ding_item_list_get_content($item_query, $item_count, $item_sort);
+  }
+  else {
+    $markup = '';
+    watchdog('ding_item_list', t('Wrong parameters are passed from the query'));
+  }
+  $content = theme('ding_item_list_list', array('items' => $markup));
+
+  drupal_json_output($content);
 }
 
 /**
