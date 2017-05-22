@@ -21,6 +21,11 @@ $alt = check_plain($title . ' ' . $author);
       </div>
       <div class="item-reviews">(<?php print $review_count;?>) <?php print t('reviews'); ?></div>
     <?php endif; ?>
-    <div class="item-loan"><?php print $loan_form; ?></div>
+      <?php if (!empty($loan_form)): ?>
+        <div class="item-loan"><?php print $loan_form; ?></div>
+      <?php endif; ?>
+    <?php if (!empty($description)): ?>
+        <div class="item-description"><?php print $description; ?></div>
+    <?php endif; ?>
   </div>
 </div>

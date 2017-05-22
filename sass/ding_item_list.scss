@@ -56,7 +56,8 @@ $base-font-weight-bold:           600;
   margin: 10px 0;
 }
 
-.pane-ding-item-list {
+.pane-ding-item-list,
+.pane-ding-item-list-static {
   background-color: $white;
   padding: 10px;
 
@@ -65,7 +66,8 @@ $base-font-weight-bold:           600;
   }
 }
 
-.layout-wrapper .pane-ding-item-list {
+.layout-wrapper .pane-ding-item-list,
+.layout-wrapper .pane-ding-item-list-static {
   background-color: transparent;
   padding: 0;
 }
