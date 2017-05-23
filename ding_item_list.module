@@ -263,15 +263,8 @@ function ding_item_list_search_ting($query = '', $page = 1, $records = 10, $sort
  */
 function ding_item_list_check_cover($local_id, $style = 'ding_item_list') {
   module_load_include('module', 'ting_covers');
-  $cover_settings = array(
-    $local_id => array(
-      'id' => $local_id,
-      'image_style' => $style,
-    ),
-  );
 
   $covers = ting_covers_get(array($local_id));
-
   if (!empty($covers)) {
     return TRUE;
   }
@@ -414,7 +407,7 @@ function ding_item_list_search_form(&$form, $default = array()) {
  *   List markup.
  */
 function ding_item_list_get_content($query, $count, $sort) {
-  $cid = ding_item_list_generate_cache_id($query);
+  $cid = ding_item_list_generate_cache_id($query . $count . $sort);
   $cache = cache_get($cid, 'cache_ding_item');
 
   if (!$cache || empty($cache->data)) {

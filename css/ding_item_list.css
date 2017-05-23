@@ -27,15 +27,18 @@
   margin: 10px 0;
 }
 
-.pane-ding-item-list {
+.pane-ding-item-list,
+.pane-ding-item-list-static {
   background-color: #fff;
   padding: 10px;
 }
-.pane-ding-item-list .pane-title {
+.pane-ding-item-list .pane-title,
+.pane-ding-item-list-static .pane-title {
   margin-bottom: 0;
 }
 
-.layout-wrapper .pane-ding-item-list {
+.layout-wrapper .pane-ding-item-list,
+.layout-wrapper .pane-ding-item-list-static {
   background-color: transparent;
   padding: 0;
 }
