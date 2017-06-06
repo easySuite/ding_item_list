@@ -504,3 +504,43 @@ function ding_item_list_cronapi($op, $function = NULL) {
       break;
   }
 }
+
+/**
+ * Plugin edit form.
+ */
+function ding_item_list_plugin_edit_form($form, &$form_state) {
+  $conf = $form_state['conf'];
+
+  // Use specific title handling - hide pane title if no content is present.
+  // Standard pane title handling does not provide such functionality,
+  // so use custom title field and hide the standard ones.
+  unset($form['override_title']);
+  unset($form['override_title_text']);
+  unset($form['override_title_markup']);
+
+  $form['item_list_item_list_custom_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pane title'),
+    '#default_value' => t(isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : 'Related materials'),
+  );
+
+  ding_item_list_search_form($form, $conf);
+
+  return $form;
+}
+
+/**
+ * Plugin edit form submit handler.
+ *
+ * Saves the data from the form.
+ */
+function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
+  $form_state['conf']['item_list_item_list_custom_title'] = $form_state['values']['item_list_item_list_custom_title'];
+  $form_state['conf']['item_query'] = $form_state['input']['item_query'];
+  $form_state['conf']['item_count'] = $form_state['input']['item_count'];
+  $form_state['conf']['item_sort'] = $form_state['input']['item_sort'];
+
+  // Clear cache when saving settings.
+  $cid = ding_item_list_generate_cache_id($form_state['conf']['item_query']);
+  cache_clear_all($cid, 'cache_ding_item');
+}

@@ -16,6 +16,11 @@ $plugin = array(
   'edit form' => 'ding_item_list_plugin_edit_form',
 );
 
+/**
+ * Render callback of the pane.
+ *
+ * @return \stdClass
+ */
 function ding_item_list_static_plugin_render($subtype, $conf, $panel_args, $context) {
   // Add cron job callback to be able to warmup the cache.
   if (!empty($conf['item_query'])) {
