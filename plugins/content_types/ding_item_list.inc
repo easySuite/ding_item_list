@@ -42,6 +42,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $plugin_data->content['#attached'] = array(
     'js' => array(
       array('data' => $path . '/js/ding_item_list.js'),
+      array('data' => $path . '/js/ding-list-add-button.js'),
       array(
         'data' => array(
           $hash => array(
@@ -55,6 +56,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
     ),
     'css' => array(
       $path . '/css/ding_item_list.css',
+      $path . '/css/ding-list-add-button.css',
     ),
   );
 
