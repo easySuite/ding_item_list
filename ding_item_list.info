@@ -3,7 +3,6 @@ description = "Display a set of Ting items formatted as a list."
 version = 7.x-3.0.2
 core = "7.x"
 package = "easyOPAC"
-dependencies[] = "ding_item_cache"
 dependencies[] = "ding_item_list_image_styles"
 dependencies[] = "ting"
 dependencies[] = "ting_search"
