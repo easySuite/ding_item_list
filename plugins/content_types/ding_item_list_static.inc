@@ -53,11 +53,11 @@ function ding_item_list_static_plugin_render($subtype, $conf, $panel_args, $cont
  */
 function ding_item_list_get_static_content($query, $count, $sort) {
   $cid = ding_item_list_generate_cache_id($query . $count . $sort);
-  $cache = cache_get($cid, 'cache_ding_item');
+  $cache = cache_get($cid);
 
   if (!$cache || empty($cache->data)) {
     $objects = ding_item_list_get_objects($query, $count, FALSE, $sort);
-    cache_set($cid, $objects, 'cache_ding_item', time() + DING_ITEM_LIST_CACHE_TLL * 3600);
+    cache_set($cid, $objects, 'cache', $_SERVER['REQUEST_TIME'] + DING_ITEM_LIST_CACHE_TLL);
   }
   else {
     $objects = $cache->data;
