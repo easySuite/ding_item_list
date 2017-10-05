@@ -95,10 +95,20 @@ $base-font-weight-bold:           600;
     }
 
     .reserve-button {
-      @extend %button;
-      margin-left: 10px;
-      padding: 8px 10px;
-      font-size: $font-size-reset;
+      margin-bottom: 15px;
+      color: #fff;
+      background-color: #000;
+      text-decoration: none;
+      border-radius: 5px;
+      padding: 20px 80px 14px 15px;
+      display: block;
+      line-height: normal;
+      max-width: 170px;
+
+      &:hover {
+        background-color: #808285;
+        color: #fff;
+      }
     }
 
     .item-loan {
@@ -111,4 +121,55 @@ $base-font-weight-bold:           600;
       }
     }
   }
+}
+
+.pane-ding-item-list .ding-item-list-item {
+  .item-loan {
+    .action-button.other-formats {
+      display: none;
+    }
+  }
+}
+
+.buttons.dlab-breakout-button {
+  width: 25%;
+  float: left;
+  list-style: none;
+  z-index: 10;
+
+  .list-title {
+    float: left;
+    color: #262627;
+    font-family: FaktPro-SemiBold,sans-serif;
+    width: 50%;
+    line-height: 24px;
+    word-break: break-all;
+  }
+
+  .add-to-list-button {
+    background: #ccc;
+    float: right;
+    padding-right: 15px;
+    min-width: 170px;
+
+    &:hover {
+      background-color: #808285;
+    }
+  }
+}
+
+.buttons.dlab-breakout-button li:nth-child(2n+1) {
+  width: 100%;
+  top: 560px;
+  background-color: #e5e5e5;
+  display: block;
+
+}
+
+.buttons.dlab-breakout-button li {
+  width: 100%;
+  float: left;
+  padding: 20px;
+  background-color: #fff;
+  display: block;
 }

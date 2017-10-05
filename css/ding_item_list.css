@@ -2,27 +2,6 @@
    ========================================================================== */
 /* Font variables
    ========================================================================== */
-.ding-item-list-item .item-details .reserve-button {
-  border-radius: 10px;
-  display: inline-block;
-  font-size: 100%;
-  padding: 10px;
-  position: relative;
-  box-shadow: 0 0 1px #595959 inset;
-  cursor: pointer;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 100%;
-}
-.ding-item-list-item .item-details .reserve-button:focus, .ding-item-list-item .item-details .reserve-button:hover, .ding-item-list-item .item-details .reserve-button:active {
-  text-decoration: none;
-}
-.ding-item-list-item .item-details .disabled.reserve-button, .ding-item-list-item .item-details [disabled].reserve-button {
-  opacity: 0.65;
-  box-shadow: none;
-  cursor: default;
-}
-
 .pane-ding-item-list-recommendations {
   margin: 10px 0;
 }
@@ -63,13 +42,66 @@
   font-weight: 600;
 }
 .ding-item-list-item .item-details .reserve-button {
-  margin-left: 10px;
-  padding: 8px 10px;
-  font-size: 100%;
+  margin-bottom: 15px;
+  color: #fff;
+  background-color: #000;
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 20px 80px 14px 15px;
+  display: block;
+  line-height: normal;
+  max-width: 170px;
+}
+.ding-item-list-item .item-details .reserve-button:hover {
+  background-color: #808285;
+  color: #fff;
 }
 .ding-item-list-item .item-details .item-loan,
 .ding-item-list-item .item-details .item-loan a {
   font-size: 100%;
   font-family: inherit;
   line-height: inherit;
+}
+
+.pane-ding-item-list .ding-item-list-item .item-loan .action-button.other-formats {
+  display: none;
+}
+
+.buttons.dlab-breakout-button {
+  width: 25%;
+  float: left;
+  list-style: none;
+  z-index: 10;
+}
+.buttons.dlab-breakout-button .list-title {
+  float: left;
+  color: #262627;
+  font-family: FaktPro-SemiBold,sans-serif;
+  width: 50%;
+  line-height: 24px;
+  word-break: break-all;
+}
+.buttons.dlab-breakout-button .add-to-list-button {
+  background: #ccc;
+  float: right;
+  padding-right: 15px;
+  min-width: 170px;
+}
+.buttons.dlab-breakout-button .add-to-list-button:hover {
+  background-color: #808285;
+}
+
+.buttons.dlab-breakout-button li:nth-child(2n+1) {
+  width: 100%;
+  top: 560px;
+  background-color: #e5e5e5;
+  display: block;
+}
+
+.buttons.dlab-breakout-button li {
+  width: 100%;
+  float: left;
+  padding: 20px;
+  background-color: #fff;
+  display: block;
 }
