@@ -1,5 +1,5 @@
 .ding-list-add-button {
-  display: block;
+  display: inline-block;
 }
 .ding-list-add-button .trigger {
   margin-bottom: 15px;
