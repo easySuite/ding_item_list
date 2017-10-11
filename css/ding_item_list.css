@@ -48,9 +48,10 @@
   text-decoration: none;
   border-radius: 5px;
   padding: 20px 80px 14px 15px;
-  display: block;
+  display: inline-block;
   line-height: normal;
   max-width: 170px;
+  margin-left: 10px;
 }
 .ding-item-list-item .item-details .reserve-button:hover {
   background-color: #808285;
@@ -68,10 +69,20 @@
 }
 
 .buttons.dlab-breakout-button {
-  width: 25%;
+  width: 30%;
   float: left;
   list-style: none;
   z-index: 10;
+}
+.buttons.dlab-breakout-button li {
+  border-left: 1px solid #acacac;
+  border-right: 1px solid #acacac;
+}
+.buttons.dlab-breakout-button li:first-child {
+  border-top: 1px solid #acacac;
+}
+.buttons.dlab-breakout-button li:last-child {
+  border-bottom: 1px solid #acacac;
 }
 .buttons.dlab-breakout-button .list-title {
   float: left;

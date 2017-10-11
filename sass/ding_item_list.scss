@@ -101,9 +101,10 @@ $base-font-weight-bold:           600;
       text-decoration: none;
       border-radius: 5px;
       padding: 20px 80px 14px 15px;
-      display: block;
+      display: inline-block;
       line-height: normal;
       max-width: 170px;
+      margin-left: 10px;
 
       &:hover {
         background-color: #808285;
@@ -132,10 +133,23 @@ $base-font-weight-bold:           600;
 }
 
 .buttons.dlab-breakout-button {
-  width: 25%;
+  width: 30%;
   float: left;
   list-style: none;
   z-index: 10;
+
+  li {
+    border-left: 1px solid #acacac;  
+    border-right: 1px solid #acacac;
+
+    &:first-child {
+      border-top: 1px solid #acacac;
+    }
+
+    &:last-child {
+      border-bottom: 1px solid #acacac;
+    }
+  }
 
   .list-title {
     float: left;
