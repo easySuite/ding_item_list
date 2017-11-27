@@ -1,4 +1,4 @@
-easyDDB Ding Item List
+easyOPAC Ding Item List
 ==========
 
 This module implements a Ctools content type plugin for Panels that shows

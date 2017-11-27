@@ -108,7 +108,7 @@ msgid "Cache warmer"
 msgstr ""
 
 #: ding_item_list.info:0
-msgid "easyDDB Ding Item List"
+msgid "easyOPAC Ding Item List"
 msgstr ""
 
 #: ding_item_list.info:0
@@ -119,7 +119,7 @@ msgstr "Viser en redaktør-genereret liste af materialer fra Brønden."
 #: modules/ding_item_list_field/ding_item_list_field.info:0
 #: modules/ding_item_list_image_styles/ding_item_list_image_styles.info:0
 #: modules/ding_item_list_recommendations/ding_item_list_recommendations.info:0
-msgid "easyDDB"
+msgid "easyOPAC"
 msgstr ""
 
 #: modules/ding_item_list_field/ding_item_list_field.module:15
@@ -139,7 +139,7 @@ msgid "Default"
 msgstr ""
 
 #: modules/ding_item_list_field/ding_item_list_field.info:0
-msgid "easyDDB Ding Item List Field"
+msgid "easyOPAC Ding Item List Field"
 msgstr ""
 
 #: modules/ding_item_list_field/ding_item_list_field.info:0
@@ -147,7 +147,7 @@ msgid "Provide a field instance to be used inside nodes"
 msgstr ""
 
 #: modules/ding_item_list_image_styles/ding_item_list_image_styles.info:0
-msgid "easyDDB Ding Item List Image Styles"
+msgid "easyOPAC Ding Item List Image Styles"
 msgstr ""
 
 #: modules/ding_item_list_image_styles/ding_item_list_image_styles.info:0
@@ -155,7 +155,7 @@ msgid "Image styles export for Ding Item List"
 msgstr "Image styles tilhørende Ding Item List"
 
 #: modules/ding_item_list_recommendations/ding_item_list_recommendations.info:0
-msgid "easyDDB Ding Item List Recommendations"
+msgid "easyOPAC Ding Item List Recommendations"
 msgstr ""
 
 #: modules/ding_item_list_recommendations/ding_item_list_recommendations.info:0
