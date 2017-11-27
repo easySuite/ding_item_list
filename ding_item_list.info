@@ -1,4 +1,4 @@
-name = "easyDDB Ding Item List"
+name = "easyOPAC Ding Item List"
 description = "Display a set of Ting items formatted as a list."
 version = 7.x-3.0.2
 core = "7.x"
