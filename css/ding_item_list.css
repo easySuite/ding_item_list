@@ -6,16 +6,6 @@
   margin: 10px 0;
 }
 
-.pane-ding-item-list,
-.pane-ding-item-list-static {
-  background-color: #fff;
-  padding: 10px;
-}
-.pane-ding-item-list .pane-title,
-.pane-ding-item-list-static .pane-title {
-  margin-bottom: 0;
-}
-
 .layout-wrapper .pane-ding-item-list,
 .layout-wrapper .pane-ding-item-list-static {
   background-color: transparent;
@@ -27,7 +17,6 @@
   margin-bottom: 10px;
   padding-top: 10px;
   border-top: 1px dashed #ccc;
-  font-size: 16px;
 }
 .ding-item-list-item .item-cover {
   float: left;
@@ -39,6 +28,7 @@
   font-size: 90%;
 }
 .ding-item-list-item .item-details .item-title a {
+  font-size: 16px;
   font-weight: 600;
 }
 .ding-item-list-item .item-details .reserve-button {
