@@ -31,10 +31,10 @@
   font-size: 16px;
   font-weight: 600;
 }
-.ding-item-list-item .item-details .reserve-button {
+.ding-item-list-item .item-details .action-button {
   display: inline-block;
 }
-.ding-item-list-item .item-details .reserve-button:hover {
+.ding-item-list-item .item-details .action-button:hover {
   background-color: #808285;
   color: #fff;
 }
