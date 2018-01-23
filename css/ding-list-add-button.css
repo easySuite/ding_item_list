@@ -1,0 +1,35 @@
+.ding-list-add-button {
+  display: inline-block;
+}
+.ding-list-add-button .trigger {
+  margin-bottom: 15px;
+  color: rgba(38,38,38,.54);
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 20px 80px 14px 15px;
+  display: block;
+  line-height: normal;
+  background-color: #e5e5e5;
+  max-width: 170px;
+}
+.ding-list-add-button.hidden {
+  display: none;
+}
+.ding-list-add-button.showing .trigger,
+.ding-list-add-button .trigger:hover {
+  color: #fff;
+  background-color: #808285;
+}
+.dlab-breakout-button {
+  padding: 0;
+  padding-top: 43px; /* 35 + 8 */
+}
+.dlab-breakout-button li {
+  list-style: none;
+}
+.dlab-breakout-button li > span,
+.dlab-breakout-button li a {
+  color: #000;
+  display: block;
+  padding: 8px 13px;
+}

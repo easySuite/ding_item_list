@@ -38,9 +38,9 @@ function ding_item_list_ctools_plugin_directory($module, $plugin) {
  * Implements hook_theme().
  */
 function ding_item_list_theme($existing, $type, $theme, $path) {
-  drupal_add_css(drupal_get_path('module', 'ding_item_list') . '/css/ding_item_list.css', array('type' => 'file'));
-  $hooks = array();
+  drupal_add_css($path . '/css/ding_item_list.css', array('type' => 'file'));
 
+  $hooks = array();
   $hooks['ding_item_list_list'] = array(
     'variables' => array(),
     'template' => 'ding-item-list_item-list',
@@ -263,15 +263,8 @@ function ding_item_list_search_ting($query = '', $page = 1, $records = 10, $sort
  */
 function ding_item_list_check_cover($local_id, $style = 'ding_item_list') {
   module_load_include('module', 'ting_covers');
-  $cover_settings = array(
-    $local_id => array(
-      'id' => $local_id,
-      'image_style' => $style,
-    ),
-  );
 
   $covers = ting_covers_get(array($local_id));
-
   if (!empty($covers)) {
     return TRUE;
   }
@@ -414,12 +407,12 @@ function ding_item_list_search_form(&$form, $default = array()) {
  *   List markup.
  */
 function ding_item_list_get_content($query, $count, $sort) {
-  $cid = ding_item_list_generate_cache_id($query);
-  $cache = cache_get($cid, 'cache_ding_item');
+  $cid = ding_item_list_generate_cache_id($query . $count . $sort);
+  $cache = cache_get($cid);
 
   if (!$cache || empty($cache->data)) {
     $objects = ding_item_list_get_objects($query, $count, FALSE, $sort);
-    cache_set($cid, $objects, 'cache_ding_item', time() + DING_ITEM_LIST_CACHE_TLL * 3600);
+    cache_set($cid, $objects, 'cache', $_SERVER['REQUEST_TIME'] + DING_ITEM_LIST_CACHE_TLL);
   }
   else {
     $objects = $cache->data;
@@ -436,6 +429,7 @@ function ding_item_list_get_content($query, $count, $sort) {
   $markup = '';
   foreach ($objects as $object) {
     $loan_form = module_invoke_all('ding_entity_buttons', 'ding_entity', $object->primary_object, 'ajax');
+
     $markup .= theme('ding_item_list_item', array(
       'faust' => $object->id,
       'cover' => (!empty($object->image) && file_exists($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
@@ -494,7 +488,7 @@ function ding_item_list_cronapi($op, $function = NULL) {
         case 'ding_item_list_warm_cache':
           module_load_include('inc', 'ding_item_list', 'plugins/content_types/ding_item_list');
           // Clear cache.
-          cache_clear_all('ding_item_list', 'cache_ding_item', TRUE);
+          cache_clear_all('ding_item_list', 'cache', TRUE);
 
           // Rebuild cache by executing existing callbacks.
           $cache = cache_get('ding_item_list_cronapi_task');
@@ -510,4 +504,44 @@ function ding_item_list_cronapi($op, $function = NULL) {
       }
       break;
   }
+}
+
+/**
+ * Plugin edit form.
+ */
+function ding_item_list_plugin_edit_form($form, &$form_state) {
+  $conf = $form_state['conf'];
+
+  // Use specific title handling - hide pane title if no content is present.
+  // Standard pane title handling does not provide such functionality,
+  // so use custom title field and hide the standard ones.
+  unset($form['override_title']);
+  unset($form['override_title_text']);
+  unset($form['override_title_markup']);
+
+  $form['item_list_item_list_custom_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pane title'),
+    '#default_value' => t(isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : 'Related materials'),
+  );
+
+  ding_item_list_search_form($form, $conf);
+
+  return $form;
+}
+
+/**
+ * Plugin edit form submit handler.
+ *
+ * Saves the data from the form.
+ */
+function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
+  $form_state['conf']['item_list_item_list_custom_title'] = $form_state['values']['item_list_item_list_custom_title'];
+  $form_state['conf']['item_query'] = $form_state['input']['item_query'];
+  $form_state['conf']['item_count'] = $form_state['input']['item_count'];
+  $form_state['conf']['item_sort'] = $form_state['input']['item_sort'];
+
+  // Clear cache when saving settings.
+  $cid = ding_item_list_generate_cache_id($form_state['conf']['item_query']);
+  cache_clear_all($cid, 'cache');
 }
