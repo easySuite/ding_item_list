@@ -17,6 +17,15 @@
   margin-bottom: 10px;
   padding-top: 10px;
   border-top: 1px dashed #ccc;
+  /*  table {
+      td {
+        padding: 0;
+      }
+    }
+    td.item-details {
+      float: left;
+      margin: 0;
+    }*/
 }
 .ding-item-list-item .item-cover {
   float: left;

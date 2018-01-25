@@ -35,6 +35,17 @@ function ding_item_list_ctools_plugin_directory($module, $plugin) {
 }
 
 /**
+ * Implements hook_theme_registry_alter().
+ */
+/*function ding_item_list_theme_registry_alter(&$theme_registry = array()) {
+  ‌‌$theme_registry['ding_item_list_item_table']['preprocess functions'] = 'ding_item_list_item_table_preprocess';
+}
+
+function ding_item_list_item_table_preprocess(&$variables) {
+  $a = 1;
+}*/
+
+/**
  * Implements hook_theme().
  */
 function ding_item_list_theme($existing, $type, $theme, $path) {
@@ -50,6 +61,12 @@ function ding_item_list_theme($existing, $type, $theme, $path) {
   $hooks['ding_item_list_item'] = array(
     'variables' => array(),
     'template' => 'ding-item-list_item',
+    'path' => $path . '/templates',
+  );
+
+  $hooks['ding_item_list_item_table'] = array(
+    'variables' => array(),
+    'template' => 'ding-item-list_item-table',
     'path' => $path . '/templates',
   );
 
