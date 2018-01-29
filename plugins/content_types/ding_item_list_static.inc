@@ -73,7 +73,7 @@ function ding_item_list_get_static_content($query, $count, $sort) {
 
   $markup = '';
   foreach ($objects as $object) {
-    $markup .= theme('ding_item_list_item', array(
+    $markup .= theme('ding_item_list_item_table', array(
         'faust' => $object->id,
         'cover' => (!empty($object->image) && file_exists($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
         'title' => $object->title,
