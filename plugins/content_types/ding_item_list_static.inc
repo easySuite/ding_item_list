@@ -28,7 +28,7 @@ function ding_item_list_static_plugin_render($subtype, $conf, $panel_args, $cont
   }
 
   $plugin_data = new stdClass();
-  $plugin_data->title = t(isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : 'Related materials');
+  $plugin_data->title = t(isset($conf['item_list_item_list_custom_title']) ? $conf['item_list_item_list_custom_title'] : 'Materials');
 
   $item_sort = empty($conf['item_sort']) ? '' : $conf['item_sort'];
 
