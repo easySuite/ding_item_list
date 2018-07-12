@@ -53,6 +53,12 @@ function ding_item_list_theme($existing, $type, $theme, $path) {
     'path' => $path . '/templates',
   );
 
+  $hooks['ding_item_list_item_table'] = array(
+    'variables' => array(),
+    'template' => 'ding-item-list_item-table',
+    'path' => $path . '/templates',
+  );
+
   return $hooks;
 }
 
