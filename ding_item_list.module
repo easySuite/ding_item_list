@@ -249,7 +249,9 @@ function ding_item_list_search_ting($query = '', $page = 1, $records = 10, $sort
       'sort' => $sort,
     );
 
-    $query = '(' . _ting_search_quote($query) . ')';
+    $cqlDoctor = new TingSearchCqlDoctor($query);
+
+    $query = '(' . $cqlDoctor->string_to_cql() . ')';
     $search_result = ting_do_search($query, $page, $records, $options);
 
     return $search_result;
