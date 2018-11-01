@@ -16,6 +16,11 @@ $alt = check_plain($title . ' ' . $author);
       <?php if (!empty($author)): ?>
         <div class="item-author"><?php print t('By @author', array('@author' => $author)); ?> (<?php print $year;?>)</div>
       <?php endif; ?>
+      <?php if ($rating): ?>
+        <div class="item-rating">
+          <?php print $rating; ?>
+        </div>
+      <?php endif; ?>
       <?php if (!empty($loan_form)): ?>
         <div class="item-loan"><?php print $loan_form; ?></div>
       <?php endif; ?>
