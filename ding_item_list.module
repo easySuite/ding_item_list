@@ -181,12 +181,18 @@ function ding_item_list_get_content($query, $count, $sort) {
   foreach ($objects as $object) {
     $loan_form = module_invoke_all('ding_entity_buttons', 'ding_entity', $object, 'ajax');
     $cover = ting_covers_object_path($object->getId());
+    $rating = field_view_field('ting_object', $object, "ding_entity_rating_action", [
+      'label' => 'hidden',
+      'type' => 'ding_entity_rating_action_default',
+    ]);
+
     $markup .= theme('ding_item_list_item', array(
       'faust' => $object->getId(),
       'cover' => (!empty($cover) && file_exists($cover)) ? image_style_url('ding_item_list', $cover) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
       'title' => $object->getTitle(),
       'author' => reset($object->getCreators()),
       'year' => $object->getDate(),
+      'rating' => drupal_render($rating),
       'loan_form' => drupal_render($loan_form),
       )
     );

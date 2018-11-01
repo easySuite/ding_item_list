@@ -94,6 +94,7 @@ $base-font-weight-bold:           600;
     }
 
     .item-loan {
+      display: inline-block;
       a {
         font-size: $font-size-reset;
         font-family: inherit;

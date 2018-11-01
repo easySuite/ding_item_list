@@ -38,6 +38,9 @@
   background-color: #808285;
   color: #fff;
 }
+.ding-item-list-item .item-details .item-loan {
+  display: inline-block;
+}
 .ding-item-list-item .item-details .item-loan a {
   font-size: 100%;
   font-family: inherit;
