@@ -84,17 +84,15 @@ $base-font-weight-bold:           600;
       font-weight: $base-font-weight-bold;
     }
 
-    .action-button {
-      display: inline-block;
-
-      &:hover {
-        background-color: #808285;
-        color: #fff;
-      }
-    }
-
     .item-loan {
-      a {
+      display: inline-block;
+      margin-top: 10px;
+
+      > * {
+        display: inline-block;
+      }
+
+      a, input.action-button {
         font-size: $font-size-reset;
         font-family: inherit;
         line-height: inherit;
@@ -102,6 +100,18 @@ $base-font-weight-bold:           600;
         margin-right: 6px;
         margin-left: 0;
         margin-bottom: 0;
+        height: 32px;
+      }
+
+      #ding-reservation-reserve-form input[type=submit] {
+        padding-right: 7px;
+      }
+
+      .action-button {
+        &:hover {
+          background-color: #808285;
+          color: #fff;
+        }
       }
     }
   }

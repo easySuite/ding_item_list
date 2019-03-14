@@ -31,14 +31,14 @@
   font-size: 16px;
   font-weight: 600;
 }
-.ding-item-list-item .item-details .action-button {
+.ding-item-list-item .item-details .item-loan {
+  display: inline-block;
+  margin-top: 10px;
+}
+.ding-item-list-item .item-details .item-loan > * {
   display: inline-block;
 }
-.ding-item-list-item .item-details .action-button:hover {
-  background-color: #808285;
-  color: #fff;
-}
-.ding-item-list-item .item-details .item-loan a {
+.ding-item-list-item .item-details .item-loan a, .ding-item-list-item .item-details .item-loan input.action-button {
   font-size: 100%;
   font-family: inherit;
   line-height: inherit;
@@ -46,6 +46,14 @@
   margin-right: 6px;
   margin-left: 0;
   margin-bottom: 0;
+  height: 32px;
+}
+.ding-item-list-item .item-details .item-loan #ding-reservation-reserve-form input[type=submit] {
+  padding-right: 7px;
+}
+.ding-item-list-item .item-details .item-loan .action-button:hover {
+  background-color: #808285;
+  color: #fff;
 }
 
 .pane-ding-item-list .ding-item-list-item .item-loan .action-button.other-formats {

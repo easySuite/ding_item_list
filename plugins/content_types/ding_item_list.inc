@@ -42,6 +42,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   $plugin_data->content['#attached'] = array(
     'js' => array(
       array('data' => $path . '/js/ding_item_list.js'),
+      array('data' => drupal_get_path('module', 'ding_entity_rating') . '/js/ding_entity_rating.js'),
       array(
         'data' => array(
           $hash => array(

@@ -32,7 +32,7 @@ function ding_item_list_static_plugin_render($subtype, $conf, $panel_args, $cont
 
   $item_sort = empty($conf['item_sort']) ? '' : $conf['item_sort'];
 
-  $markup = ding_item_list_get_static_content($conf['item_query'], $conf['item_count'], $item_sort);
+  $markup = ding_item_list_get_static_content($conf['item_query'], (int) $conf['item_count'], $item_sort);
   $plugin_data->content = $markup;
 
   return $plugin_data;
@@ -56,34 +56,25 @@ function ding_item_list_get_static_content($query, $count, $sort) {
   $cache = cache_get($cid);
 
   if (!$cache || empty($cache->data)) {
-    $objects = ding_item_list_get_objects($query, $count, FALSE, $sort);
+    $objects = _ding_item_list_get_items_with_covers($query, $count, $sort);
     cache_set($cid, $objects, 'cache', $_SERVER['REQUEST_TIME'] + DING_ITEM_LIST_CACHE_TLL);
   }
   else {
     $objects = $cache->data;
   }
 
-  // Check if cover images are physically present.
-  try {
-    ding_item_list_create_missed_covers($objects);
-  }
-  catch (Exception $e) {
-    // No special handling at the moment.
-  }
 
   $markup = '';
   foreach ($objects as $object) {
+    $cover = ting_covers_object_path($object->getId());
     $markup .= theme('ding_item_list_item_table', array(
-        'faust' => $object->id,
-        'cover' => (!empty($object->image) && file_exists($object->image)) ? image_style_url('ding_item_list', $object->image) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
-        'title' => $object->title,
-        'author' => $object->creator,
-        'year' => $object->year,
-        'has_rating' => $object->has_rating,
-        'rating' => $object->rating,
-        'rating_count' => $object->rating_count,
-        'review_count' => $object->comment_count,
-        'description' => mb_strimwidth($object->description, 0, 50, '...'),
+        'faust' => $object->getId(),
+        'cover' => (!empty($cover) && file_exists($cover)) ? image_style_url('ding_item_list',$cover) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
+        'title' => $object->getTitle(),
+        'author' => reset($object->getCreators()),
+        'year' => $object->getDate(),
+        'rating' => ding_entity_rating_get_average($object),
+        'description' => mb_strimwidth($object->getAbstract(), 0, 50, '...'),
       )
     );
   }
