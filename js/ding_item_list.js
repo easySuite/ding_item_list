@@ -10,11 +10,11 @@
         if (ding_item_list !== '') {
           $.getJSON(Drupal.settings.basePath + 'ding_item_list/' + hash, {content: ding_item_list}, function (content) {
             $('.pane-ding-item-list', context).find('[data-hash=' + hash + ']').replaceWith(content);
+            // This is a hack. Need to implement drupal_ajax_command.
+            // so, the behaviours will be triggered on DOM alter.
+            Drupal.attachBehaviors('.ding-item-list-item');
 
             let $list = $('.ding-list-add-button');
-
-            // console.log($list);
-            // debugger;
 
             $list.each(function (delta, dlab) {
               $(this).removeClass('hidden');
