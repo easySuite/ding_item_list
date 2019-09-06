@@ -179,7 +179,7 @@ function ding_item_list_get_content($query, $count, $sort) {
 
   $markup = '';
   foreach ($objects as $object) {
-    $loan_form = module_invoke_all('ding_entity_buttons', 'ding_entity', $object, 'ajax');
+    $loan_form = module_invoke_all('ding_entity_buttons', 'ding_entity', $object, 'ajax', 'ajax');
     $cover = ting_covers_object_path($object->getId());
     $rating = field_view_field('ting_object', $object, "ding_entity_rating_action", [
       'label' => 'hidden',
