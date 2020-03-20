@@ -9,5 +9,5 @@
   <div class="ding-item-list-items">
     <?php print $items; ?>
   </div>
-  <?php ;endif ?>
+  <?php endif; ?>
 </div>
