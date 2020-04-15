@@ -1,6 +1,6 @@
 name = "easyOPAC Ding Item List"
 description = "Display a set of Ting items formatted as a list."
-version = 7.x-5.0.0
+version = 7.x-6.0.1
 core = "7.x"
 package = "easyOPAC"
 dependencies[] = "ding_item_list_image_styles"
