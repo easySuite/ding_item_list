@@ -26,7 +26,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
   }
 
   $plugin_data = new stdClass();
-  $plugin_data->content = '';
+  $plugin_data->content = [];
 
   $item_sort = empty($conf['item_sort']) ? '' : $conf['item_sort'];
 
