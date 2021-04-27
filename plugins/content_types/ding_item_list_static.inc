@@ -63,20 +63,25 @@ function ding_item_list_get_static_content($query, $count, $sort) {
     $objects = $cache->data;
   }
 
-
   $markup = '';
   foreach ($objects as $object) {
     $cover = ting_covers_object_path($object->getId());
-    $markup .= theme('ding_item_list_item_table', array(
-        'faust' => $object->getId(),
-        'cover' => (!empty($cover) && file_exists($cover)) ? image_style_url('ding_item_list',$cover) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
-        'title' => $object->getTitle(),
-        'author' => reset($object->getCreators()),
-        'year' => $object->getDate(),
-        'rating' => ding_entity_rating_get_average($object),
-        'description' => mb_strimwidth($object->getAbstract(), 0, 50, '...'),
-      )
-    );
+    $creators = $object->getCreators();
+
+    $theme_variables = [
+      'faust' => $object->getId(),
+      'cover' => (!empty($cover) && file_exists($cover)) ? image_style_url('ding_item_list', $cover) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
+      'title' => $object->getTitle(),
+      'author' => reset($creators),
+      'year' => $object->getDate(),
+      'description' => mb_strimwidth($object->getAbstract(), 0, 50, '...'),
+    ];
+
+    if (module_exists('ding_entity_rating')) {
+      $theme_variables['rating'] = ding_entity_rating_get_average($object);
+    }
+
+    $markup .= theme('ding_item_list_item_table', $theme_variables);
   }
 
   return $markup;
