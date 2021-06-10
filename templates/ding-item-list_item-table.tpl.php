@@ -27,7 +27,7 @@ $alt = check_plain($title . ' ' . $author);
             } ?> (<?php print $year; ?>)
           </td>
         </tr>
-        <?php if ($has_rating): ?>
+        <?php if (isset($has_rating)): ?>
           <tr>
             <td class="item-rating">
               <div
