@@ -185,12 +185,13 @@ function ding_item_list_get_content($query, $count, $sort) {
       'label' => 'hidden',
       'type' => 'ding_entity_rating_action_default',
     ]);
+    $creators = $object->getCreators();
 
     $markup .= theme('ding_item_list_item', array(
       'faust' => $object->getId(),
       'cover' => (!empty($cover) && file_exists($cover)) ? image_style_url('ding_item_list', $cover) : '/' . drupal_get_path('module', 'ding_item_list') . '/images/no-image-minil.png',
       'title' => $object->getTitle(),
-      'author' => reset($object->getCreators()),
+      'author' => reset($creators),
       'year' => $object->getDate(),
       'rating' => drupal_render($rating),
       'loan_form' => drupal_render($loan_form),
