@@ -67,7 +67,7 @@ function ding_item_list_get_static_content($query, $count, $sort, $no_covers = N
 
   $markup = '';
   foreach ($objects as $object) {
-    $cover = ting_covers_object_path($object->getLocalId());
+    $cover = ting_covers_object_path($object->getId());
     $creators = $object->getCreators();
 
     $theme_variables = [
