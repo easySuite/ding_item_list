@@ -34,6 +34,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
     'query' => $conf['item_query'],
     'count' => $conf['item_count'],
     'sort' => $item_sort,
+    'no_covers' => $conf['no_covers'],
   ));
   $hash = md5($params);
 
@@ -48,6 +49,7 @@ function ding_item_list_plugin_render($subtype, $conf, $panel_args, $context) {
             'query' => $conf['item_query'],
             'count' => $conf['item_count'],
             'sort' => $item_sort,
+            'no_covers' => $conf['no_covers'],
           ),
         ),
         'type' => 'setting'
