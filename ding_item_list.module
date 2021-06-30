@@ -67,8 +67,8 @@ function ding_item_list_theme($existing, $type, $theme, $path) {
  */
 function get_item_list_ajax() {
   if (!empty($_GET['content']) && count($_GET['content']) > 2) {
-    list($item_query, $item_count, $item_sort) = array_values($_GET['content']);
-    $markup = ding_item_list_get_content($item_query, (int) $item_count, $item_sort);
+    list($item_query, $item_count, $item_sort, $no_covers) = array_values($_GET['content']);
+    $markup = ding_item_list_get_content($item_query, (int) $item_count, $item_sort, $no_covers);
   }
   else {
     $markup = '';
@@ -123,6 +123,13 @@ function ding_item_list_search_form(&$form, $default = array()) {
     '#maxlength' => 255,
   );
 
+  $form['plugin_settings']['no_covers'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Allow no-covers'),
+    '#description' => t('When checked, all matched materials will be shown.'),
+    '#default_value' => $default['no_covers'] ?? NULL,
+  ];
+
   $form['plugin_settings']['item_count'] = array(
     '#type' => 'textfield',
     '#title' => t('Items count'),
@@ -164,12 +171,12 @@ function ding_item_list_search_form(&$form, $default = array()) {
  * @return string
  *   List markup.
  */
-function ding_item_list_get_content($query, $count, $sort) {
+function ding_item_list_get_content($query, $count, $sort, $covers) {
   $cid = ding_item_list_generate_cache_id($query . $count . $sort);
   $cache = cache_get($cid);
 
   if (!$cache || empty($cache->data)) {
-    $objects = _ding_item_list_get_items_with_covers($query, $count, $sort);
+    $objects = _ding_item_list_get_items_with_covers($query, $count, $sort, $covers);
 
     cache_set($cid, $objects, 'cache', $_SERVER['REQUEST_TIME'] + DING_ITEM_LIST_CACHE_TLL);
   }
@@ -206,6 +213,7 @@ function ding_item_list_get_content($query, $count, $sort) {
  * Get ting entities search result.
  */
 function _ding_item_list_get_objects($query = '', $sort = '') {
+  $entities = [];
   $request = ting_start_query()
     ->withRawQuery($query)
     ->withCount(50)
@@ -226,16 +234,20 @@ function _ding_item_list_get_objects($query = '', $sort = '') {
 /**
  * Select only images with covers.
  */
-function _ding_item_list_get_items_with_covers($query, $count, $sort) {
+function _ding_item_list_get_items_with_covers($query, $count, $sort, $no_covers = NULL) {
   $entities_found_with_covers = array();
   $objects = _ding_item_list_get_objects($query, $sort);
   $covers = ting_covers_get(array_keys($objects));
 
-  foreach ($covers as $id => $path) {
-    $entities_found_with_covers[$id] = $objects[$id];
+  if (empty($no_covers)) {
+    foreach ($covers as $id => $path) {
+      $entities_found_with_covers[$id] = $objects[$id];
+    }
   }
 
-  return array_splice($entities_found_with_covers, 0, $count);
+  $entities_found = empty($no_covers) ? $entities_found_with_covers : $objects;
+
+  return array_splice($entities_found, 0, $count);
 }
 
 /**
@@ -328,6 +340,7 @@ function ding_item_list_plugin_edit_form($form, &$form_state) {
 function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
   $form_state['conf']['item_list_item_list_custom_title'] = $form_state['values']['item_list_item_list_custom_title'];
   $form_state['conf']['item_query'] = $form_state['input']['item_query'];
+  $form_state['conf']['no_covers'] = empty($form_state['input']['no_covers']) ? 0 : 1;
   $form_state['conf']['item_count'] = $form_state['input']['item_count'];
   $form_state['conf']['item_sort'] = $form_state['input']['item_sort'];
 

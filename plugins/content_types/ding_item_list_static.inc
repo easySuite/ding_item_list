@@ -32,7 +32,7 @@ function ding_item_list_static_plugin_render($subtype, $conf, $panel_args, $cont
 
   $item_sort = empty($conf['item_sort']) ? '' : $conf['item_sort'];
 
-  $markup = ding_item_list_get_static_content($conf['item_query'], (int) $conf['item_count'], $item_sort);
+  $markup = ding_item_list_get_static_content($conf['item_query'], (int) $conf['item_count'], $item_sort, $conf['no_covers']);
   $plugin_data->content = $markup;
 
   return $plugin_data;
@@ -46,17 +46,19 @@ function ding_item_list_static_plugin_render($subtype, $conf, $panel_args, $cont
  * @param int $count
  *   Number of items to fetch.
  * @param string $sort
- *   Sort identifier
+ *   Sort identifier.
+ * @param string $no_covers
+ *   Fetch items with covers or not.
  *
  * @return string
  *   List markup.
  */
-function ding_item_list_get_static_content($query, $count, $sort) {
+function ding_item_list_get_static_content($query, $count, $sort, $no_covers = NULL) {
   $cid = ding_item_list_generate_cache_id($query . $count . $sort);
   $cache = cache_get($cid);
 
   if (!$cache || empty($cache->data)) {
-    $objects = _ding_item_list_get_items_with_covers($query, $count, $sort);
+    $objects = _ding_item_list_get_items_with_covers($query, $count, $sort, $no_covers);
     cache_set($cid, $objects, 'cache', $_SERVER['REQUEST_TIME'] + DING_ITEM_LIST_CACHE_TLL);
   }
   else {
