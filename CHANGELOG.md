@@ -1,5 +1,8 @@
 ## Change Log
 
+### 7.x-6.3.2 (12/07-2021)
+- [#22](https://github.com/easySuite/ding_item_list/pull/22) EASYOPAC-1329 - Allow display of materials without cover images. (@bozeak)
+
 ### 7.x-6.2.1 (10/06-2021)
 - [#21](https://github.com/easySuite/ding_item_list/pull/21) EASYOPAC-1291 - Display rating only if rating module is enabled. (@bozeak)
 - [#20](https://github.com/easySuite/ding_item_list/pull/20) EASYOPAC-1275 - Adapt to 7.3+. (@bozeak)
