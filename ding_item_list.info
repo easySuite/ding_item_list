@@ -6,4 +6,4 @@ package = "easyOPAC"
 dependencies[] = "ding_item_list_image_styles"
 dependencies[] = "ting"
 dependencies[] = "ting_search"
-
+configure = admin/config/ding/ding_item_list

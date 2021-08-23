@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Ding Item List module install/uninstall.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ding_item_list_install() {
+  variable_set('ding_item_list_button_modules', _ding_item_list_default_buttons());
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function ding_item_list_uninstall() {
+  variable_del('ding_item_list_button_modules');
+}
+
+/**
+ * Default buttons displayed on list items.
+ *
+ * @return array
+ */
+function _ding_item_list_default_buttons() {
+  return [
+    'ding_reservation' => 'ding_reservation',
+    'ting' => 'ting',
+  ];
+}
+
+/**
+ * Set default buttons for list items.
+ */
+function ding_item_list_update_7001(&$sandbox) {
+  variable_set('ding_item_list_button_modules', _ding_item_list_default_buttons());
+}
