@@ -21,6 +21,16 @@ function ding_item_list_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['admin/config/ding/ding_item_list'] = array(
+    'title' => 'Ding Item List',
+    'description' => 'Configure ding item list',
+    'weight' => -20,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ding_item_list_settings_form'),
+    'access arguments' => array('administer ding settings'),
+    'file' => 'ding_item_list.admin.inc',
+  );
+
   return $items;
 }
 
@@ -184,9 +194,19 @@ function ding_item_list_get_content($query, $count, $sort, $covers) {
     $objects = $cache->data;
   }
 
+  $buttons_modules = variable_get('ding_item_list_button_modules', []);
+  $allowed_buttons = array_filter($buttons_modules);
+
   $markup = '';
   foreach ($objects as $object) {
-    $loan_form = module_invoke_all('ding_entity_buttons', 'ding_entity', $object, 'ajax', 'ajax');
+    $loan_form = ding_item_list_module_invoke_all('ding_entity_buttons', 'ding_entity', $object, 'ajax', 'ajax');
+
+    foreach ($loan_form as $key => $item) {
+      if (!in_array($item['module'], $allowed_buttons)) {
+        unset($loan_form[$key]);
+      }
+    }
+
     $cover = ting_covers_object_path($object->getId());
     $rating = field_view_field('ting_object', $object, "ding_entity_rating_action", [
       'label' => 'hidden',
@@ -347,4 +367,36 @@ function ding_item_list_plugin_edit_form_submit($form, &$form_state) {
   // Clear cache when saving settings.
   $cid = ding_item_list_generate_cache_id($form_state['conf']['item_query']);
   cache_clear_all($cid, 'cache');
+}
+
+/**
+ * Overriding core "module_invoke_all" function.
+ *
+ * @param $hook
+ *   The name of the hook to invoke.
+ *
+ * @return array
+ *
+ * @see module_invoke_all()
+ */
+function ding_item_list_module_invoke_all($hook) {
+  $args = func_get_args();
+  // Remove $hook from the arguments.
+  unset($args[0]);
+  $return = array();
+  foreach (module_implements($hook) as $key => $module) {
+    $function = $module . '_' . $hook;
+    if (function_exists($function)) {
+      $result = call_user_func_array($function, $args);
+
+      if (isset($result) && is_array($result)) {
+        if (!empty($result)) {
+          $result[0]['module'] = $module;
+        }
+        $return = array_merge_recursive($return, $result);
+      }
+    }
+  }
+
+  return $return;
 }
