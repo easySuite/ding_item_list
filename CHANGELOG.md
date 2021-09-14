@@ -1,5 +1,8 @@
 ## Change Log
 
+### 7.x-6.3.3 (14/09-2021)
+- [#23](https://github.com/easySuite/ding_item_list/pull/23) EASYOPAC-1354 - Ding Item List entity buttons control. (@bozeak)
+
 ### 7.x-6.3.2 (12/07-2021)
 - [#22](https://github.com/easySuite/ding_item_list/pull/22) EASYOPAC-1329 - Allow display of materials without cover images. (@bozeak)
 
